@@ -1,0 +1,35 @@
+﻿body {
+}
+
+ul, li {
+    text-align: right;
+    line-height: 1.2;
+}
+
+h1, h2, h3 {
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+hr {
+    width: 100%;
+}
+
+p {
+    text-align: justify;
+    line-height: 1.5;
+    direction: rtl;
+    font-size: 16px;
+}
+
+legend {
+    direction: rtl;
+}

@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|iOS">
+      <Configuration>Debug</Configuration>
+      <Platform>iOS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows-AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows-AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows-x64">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows-x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows-x86">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows-x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows-ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows-ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows Phone 8">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows Phone 8</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Windows Phone (Universal)">
+      <Configuration>Debug</Configuration>
+      <Platform>Windows Phone (Universal)</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Android">
+      <Configuration>Release</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|iOS">
+      <Configuration>Release</Configuration>
+      <Platform>iOS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows-AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>Windows-AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows-x64">
+      <Configuration>Release</Configuration>
+      <Platform>Windows-x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows-x86">
+      <Configuration>Release</Configuration>
+      <Platform>Windows-x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows-ARM">
+      <Configuration>Release</Configuration>
+      <Platform>Windows-ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows Phone 8">
+      <Configuration>Release</Configuration>
+      <Platform>Windows Phone 8</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Windows Phone (Universal)">
+      <Configuration>Release</Configuration>
+      <Platform>Windows Phone (Universal)</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Android">
+      <Configuration>Distribution</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|iOS">
+      <Configuration>Distribution</Configuration>
+      <Platform>iOS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows-AnyCPU">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows-AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows-x64">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows-x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows-x86">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows-x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows-ARM">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows-ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows Phone 8">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows Phone 8</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Distribution|Windows Phone (Universal)">
+      <Configuration>Distribution</Configuration>
+      <Platform>Windows Phone (Universal)</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>28e41baa-8026-4b7f-b9f9-65647a406485</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefaultReferenceGroup>Implicit (Multi-Device Apps)</DefaultReferenceGroup>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0'">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="css\app.css" />
+    <Content Include="css\onsen-css-components-blue-basic-theme.css" />
+    <Content Include="css\onsen-css-components-blue-theme.css" />
+    <Content Include="css\onsen-css-components-dark-theme.css" />
+    <Content Include="css\onsen-css-components-default.css" />
+    <Content Include="css\onsen-css-components-purple-theme.css" />
+    <Content Include="css\onsen-css-components-sunshine-theme.css" />
+    <Content Include="css\onsen-css-components.css" />
+    <Content Include="css\onsen-css-components.min.css" />
+    <Content Include="css\onsenui.css" />
+    <Content Include="css\tutorial.css" />
+    <Content Include="images\Adhoc SubProcess.png" />
+    <Content Include="images\Association.png" />
+    <Content Include="images\bpmn.png" />
+    <Content Include="images\BPMN_E1.png" />
+    <Content Include="images\Business Rule Task.png" />
+    <Content Include="images\Call Activity.png" />
+    <Content Include="images\Cancel Boundary Intermediate Event.png" />
+    <Content Include="images\Cancel End Event.png" />
+    <Content Include="images\Compensation Boundary Intermediate Event.png" />
+    <Content Include="images\Compensation End Event.png" />
+    <Content Include="images\Compensation Start Event.png" />
+    <Content Include="images\Compensation Subprocess.png" />
+    <Content Include="images\Compensation Throw Intermediate Event.png" />
+    <Content Include="images\Complex Gateway.png" />
+    <Content Include="images\Conditional Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Conditional Catch and Boundary Intermediate Event.png" />
+    <Content Include="images\Conditional Flow.png" />
+    <Content Include="images\Conditional Normal and SubProcess Start Event.png" />
+    <Content Include="images\Conditional Sub Process Non Interupt Start Event.png" />
+    <Content Include="images\Conditional Throw Intermediate Event.png" />
+    <Content Include="images\DataObject.png" />
+    <Content Include="images\DataStore.png" />
+    <Content Include="images\Default Flow.png" />
+    <Content Include="images\Error End Event.png" />
+    <Content Include="images\Error Start Event.png" />
+    <Content Include="images\Error Throw Intermediate Event.png" />
+    <Content Include="images\Escalaltion Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Escalaltion Start Event.png" />
+    <Content Include="images\Escalaltion Sub Process Non Interupt Start Event.png" />
+    <Content Include="images\Escalaltion Throw Intermediate Event.png" />
+    <Content Include="images\Escalation End Event.png" />
+    <Content Include="images\Escalation Throw Intermediate Event.png" />
+    <Content Include="images\Event Based Gateway.png" />
+    <Content Include="images\Event SubProcess.png" />
+    <Content Include="images\EventAnatomy.png" />
+    <Content Include="images\events.png" />
+    <Content Include="images\Exclusive Gateway.png" />
+    <Content Include="images\Exclusive Gateway2.png" />
+    <Content Include="images\Group.png" />
+    <Content Include="images\Inclusive Gateway.png" />
+    <Content Include="images\Lane.png" />
+    <Content Include="images\Link Catch Intermediate Event Timer.png" />
+    <Content Include="images\Link Throw Intermediate Event.png" />
+    <Content Include="images\linkedin-icon.png" />
+    <Content Include="images\Loop SubProcess.png" />
+    <Content Include="images\Manual Task.png" />
+    <Content Include="images\Message Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Message Catch and  Boundary Intermediate Event.png" />
+    <Content Include="images\Message End Event.png" />
+    <Content Include="images\Message Flow.png" />
+    <Content Include="images\Message Normal and SubProcess Start Event.png" />
+    <Content Include="images\Message Sub Process Non Interupt Start Event.png" />
+    <Content Include="images\Message Throw Intermediate Event.png" />
+    <Content Include="images\mistakes\diagram-10.jpg" />
+    <Content Include="images\mistakes\diagram-11.jpg" />
+    <Content Include="images\mistakes\diagram-12.jpg" />
+    <Content Include="images\mistakes\diagram-13.jpg" />
+    <Content Include="images\mistakes\diagram-14.jpg" />
+    <Content Include="images\mistakes\diagram-2.jpg" />
+    <Content Include="images\mistakes\diagram-24.jpg" />
+    <Content Include="images\mistakes\diagram-3.jpg" />
+    <Content Include="images\mistakes\diagram-34.jpg" />
+    <Content Include="images\mistakes\diagram-4.jpg" />
+    <Content Include="images\mistakes\diagram-44.jpg" />
+    <Content Include="images\mistakes\diagram-5.jpg" />
+    <Content Include="images\mistakes\diagram-53.jpg" />
+    <Content Include="images\mistakes\diagram-54.jpg" />
+    <Content Include="images\mistakes\diagram-6.jpg" />
+    <Content Include="images\mistakes\diagram-63.jpg" />
+    <Content Include="images\mistakes\diagram-64.jpg" />
+    <Content Include="images\mistakes\diagram-7.jpg" />
+    <Content Include="images\mistakes\diagram-72.jpg" />
+    <Content Include="images\mistakes\diagram-73.jpg" />
+    <Content Include="images\mistakes\diagram-74.jpg" />
+    <Content Include="images\mistakes\diagram-8.jpg" />
+    <Content Include="images\mistakes\diagram-82.jpg" />
+    <Content Include="images\mistakes\diagram-83.jpg" />
+    <Content Include="images\mistakes\diagram-84.jpg" />
+    <Content Include="images\mistakes\diagram-9.jpg" />
+    <Content Include="images\mistakes\diagram-91.jpg" />
+    <Content Include="images\mistakes\diagram-92.jpg" />
+    <Content Include="images\mistakes\diagram-93.jpg" />
+    <Content Include="images\mistakes\diagram-94.jpg" />
+    <Content Include="images\Multiple Bounday Non Interupt Intermediate Event.png" />
+    <Content Include="images\Multiple Catch and  Bounday Interupt Intermediate Event.png" />
+    <Content Include="images\Multiple End Event.png" />
+    <Content Include="images\Multiple Normal and SubProcess Start Event.png" />
+    <Content Include="images\Multiple SubProcess Non Interupt Start Event.png" />
+    <Content Include="images\Mutile Intermediate Throw Event.png" />
+    <Content Include="images\None End Event.png" />
+    <Content Include="images\Normal Start Event.png" />
+    <Content Include="images\Other-Mail-Metro-icon.png" />
+    <Content Include="images\Parallel Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Parallel Catch and  Boundary Intermediate Event.png" />
+    <Content Include="images\Parallel Gateway.png" />
+    <Content Include="images\Parallel Normal and SubProcess Start Event.png" />
+    <Content Include="images\Parallel SubProcess Non Interupt Start Event.png" />
+    <Content Include="images\Parallel SubProcess.png" />
+    <Content Include="images\Pool.png" />
+    <Content Include="images\Receive Task.png" />
+    <Content Include="images\Script Task.png" />
+    <Content Include="images\Send Task.png" />
+    <Content Include="images\Sequence Flow.png" />
+    <Content Include="images\Sequential SubProcess.png" />
+    <Content Include="images\Service Task.png" />
+    <Content Include="images\Signal Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Signal Catch and  Boundary Intermediate Event.png" />
+    <Content Include="images\Signal End Event.png" />
+    <Content Include="images\Signal Normal and SubProcess Start Event.png" />
+    <Content Include="images\Signal Sub Process Non Interupt Start Event.png" />
+    <Content Include="images\Signal Throw Intermediate Event.png" />
+    <Content Include="images\Simple Task.png" />
+    <Content Include="images\SubProcess.png" />
+    <Content Include="images\SymbolActivities.png" />
+    <Content Include="images\SymbolArtifact.png" />
+    <Content Include="images\SymbolConnectors.png" />
+    <Content Include="images\SymbolEvent.png" />
+    <Content Include="images\SymbolGateway.png" />
+    <Content Include="images\SymbolSwimLanes.png" />
+    <Content Include="images\Task.png" />
+    <Content Include="images\Termination End Event.png" />
+    <Content Include="images\Text Annotation.png" />
+    <Content Include="images\Timer Catch and Boundary Non Interupt Intermediate Event.png" />
+    <Content Include="images\Timer Normal and SubProcess Start Event.png" />
+    <Content Include="images\Timer Sub Process Non Interupt Start Event.png" />
+    <Content Include="images\Timer Throw Intermediate Event.png" />
+    <Content Include="images\Transaction.png" />
+    <Content Include="images\tutorial\Adhoc1.png" />
+    <Content Include="images\tutorial\Adhoc2.png" />
+    <Content Include="images\tutorial\Call11.png" />
+    <Content Include="images\tutorial\Call12.png" />
+    <Content Include="images\tutorial\Call13.png" />
+    <Content Include="images\tutorial\Call14.png" />
+    <Content Include="images\tutorial\Call15.png" />
+    <Content Include="images\tutorial\Compensation1.png" />
+    <Content Include="images\tutorial\Compensation2.png" />
+    <Content Include="images\tutorial\Conditional1.png" />
+    <Content Include="images\tutorial\EventBasedGateway1.png" />
+    <Content Include="images\tutorial\EventBasedGateway2.png" />
+    <Content Include="images\tutorial\Events1.png" />
+    <Content Include="images\tutorial\Events2.png" />
+    <Content Include="images\tutorial\EventSub1.png" />
+    <Content Include="images\tutorial\EventSub2.png" />
+    <Content Include="images\tutorial\ExclusiveGateway1.png" />
+    <Content Include="images\tutorial\InclusiveGateway.png" />
+    <Content Include="images\tutorial\Lane1.png" />
+    <Content Include="images\tutorial\Link1.png" />
+    <Content Include="images\tutorial\Message1.png" />
+    <Content Include="images\tutorial\Message15.png" />
+    <Content Include="images\tutorial\Message2.png" />
+    <Content Include="images\tutorial\Multiple1.png" />
+    <Content Include="images\tutorial\Multiple2.png" />
+    <Content Include="images\tutorial\ParallelGateway1.png" />
+    <Content Include="images\tutorial\ParallelGateway2.png" />
+    <Content Include="images\tutorial\ParallelGateway3.png" />
+    <Content Include="images\tutorial\Pool1.png" />
+    <Content Include="images\tutorial\Pool10.png" />
+    <Content Include="images\tutorial\Pool2.png" />
+    <Content Include="images\tutorial\Pool3.png" />
+    <Content Include="images\tutorial\Pool4.png" />
+    <Content Include="images\tutorial\Pool5.png" />
+    <Content Include="images\tutorial\Pool6.png" />
+    <Content Include="images\tutorial\Pool7.png" />
+    <Content Include="images\tutorial\Pool8.png" />
+    <Content Include="images\tutorial\Pool9.png" />
+    <Content Include="images\tutorial\Signal1.png" />
+    <Content Include="images\tutorial\SubProcess1.png" />
+    <Content Include="images\tutorial\SubProcess2.png" />
+    <Content Include="images\tutorial\SubProcess3.png" />
+    <Content Include="images\tutorial\SubProcess4.png" />
+    <Content Include="images\tutorial\SubProcess51.png" />
+    <Content Include="images\tutorial\SubProcess52.png" />
+    <Content Include="images\tutorial\Task1.png" />
+    <Content Include="images\tutorial\Task2.png" />
+    <Content Include="images\tutorial\Task3.png" />
+    <Content Include="images\tutorial\Termination1.png" />
+    <Content Include="images\tutorial\Termination2.png" />
+    <Content Include="images\tutorial\Timer1.png" />
+    <Content Include="images\tutorial\Timer2.png" />
+    <Content Include="images\tutorial\Timer3.png" />
+    <Content Include="images\User Task.png" />
+    <Content Include="images\Web-Browsers-Internet-Explorer-alt-Metro-icon.png" />
+    <Content Include="js\angular-sanitize.js" />
+    <Content Include="js\app.js" />
+    <Content Include="js\GALocalStorage.js" />
+    <Content Include="js\ng-cordova.js" />
+    <Content Include="js\ng-cordova.min.js" />
+    <Content Include="js\sharedService.js" />
+    <Content Include="templates\adhoc.html" />
+    <Content Include="templates\call.html" />
+    <Content Include="templates\cancelEvent.html" />
+    <Content Include="templates\compensationEvent.html" />
+    <Content Include="templates\conditionalEvent.html" />
+    <Content Include="templates\errorEvent.html" />
+    <Content Include="templates\escalaltionEvent.html" />
+    <Content Include="templates\eventBasedGateway.html" />
+    <Content Include="templates\eventConcept.html" />
+    <Content Include="templates\eventSub.html" />
+    <Content Include="templates\exclusive.html" />
+    <Content Include="templates\inclusive.html" />
+    <Content Include="templates\lane.html" />
+    <Content Include="templates\linkEvent.html" />
+    <Content Include="templates\messageEvent.html" />
+    <Content Include="templates\multipleEvent.html" />
+    <Content Include="templates\overview.html" />
+    <Content Include="templates\parallel.html" />
+    <Content Include="templates\parallelEvent.html" />
+    <Content Include="templates\pool.html" />
+    <Content Include="templates\preface.html" />
+    <Content Include="templates\signalEvent.html" />
+    <Content Include="templates\subProcess.html" />
+    <Content Include="templates\task.html" />
+    <Content Include="templates\terminationEvent.html" />
+    <Content Include="templates\timerEvent.html" />
+    <Content Include="vendors\onsen\css\font_awesome\css\font-awesome.css" />
+    <Content Include="vendors\onsen\css\font_awesome\css\font-awesome.min.css" />
+    <Content Include="vendors\onsen\css\font_awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="vendors\onsen\css\font_awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="vendors\onsen\css\font_awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="vendors\onsen\css\font_awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="vendors\onsen\css\font_awesome\fonts\FontAwesome.otf" />
+    <Content Include="vendors\onsen\css\ionicons\css\ionicons.css" />
+    <Content Include="vendors\onsen\css\ionicons\css\ionicons.min.css" />
+    <Content Include="vendors\onsen\css\ionicons\fonts\ionicons.eot" />
+    <Content Include="vendors\onsen\css\ionicons\fonts\ionicons.svg" />
+    <Content Include="vendors\onsen\css\ionicons\fonts\ionicons.ttf" />
+    <Content Include="vendors\onsen\css\ionicons\fonts\ionicons.woff" />
+    <Content Include="vendors\onsen\css\onsen-css-components-blue-basic-theme.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components-blue-theme.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components-dark-theme.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components-default.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components-purple-theme.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components-sunshine-theme.css" />
+    <Content Include="vendors\onsen\css\onsen-css-components.css" />
+    <Content Include="vendors\onsen\css\onsenui.css" />
+    <Content Include="vendors\onsen\js\angular\angular-animate.js" />
+    <Content Include="vendors\onsen\js\angular\angular-csp.css" />
+    <Content Include="vendors\onsen\js\angular\angular-touch.js" />
+    <Content Include="vendors\onsen\js\angular\angular.js" />
+    <Content Include="vendors\onsen\js\angular\angular.min.js" />
+    <Content Include="vendors\onsen\js\angular\angular.min.js.gzip" />
+    <Content Include="vendors\onsen\js\angular\angular.min.js.map" />
+    <Content Include="vendors\onsen\js\angular\bower.json" />
+    <Content Include="vendors\onsen\js\angular\README.md" />
+    <Content Include="vendors\onsen\js\onsenui.js" />
+    <Content Include="vendors\onsen\js\onsenui.min.js" />
+    <Content Include="vendors\onsen\js\onsenui_all.js" />
+    <Content Include="vendors\onsen\js\onsenui_all.min.js" />
+    <Content Include="vendors\onsen\stylus\blue-basic-theme.styl" />
+    <Content Include="vendors\onsen\stylus\blue-theme.styl" />
+    <Content Include="vendors\onsen\stylus\components\alert-dialog.styl" />
+    <Content Include="vendors\onsen\stylus\components\button-bar.styl" />
+    <Content Include="vendors\onsen\stylus\components\button.styl" />
+    <Content Include="vendors\onsen\stylus\components\checkbox.styl" />
+    <Content Include="vendors\onsen\stylus\components\dialog.styl" />
+    <Content Include="vendors\onsen\stylus\components\global.styl" />
+    <Content Include="vendors\onsen\stylus\components\index.styl" />
+    <Content Include="vendors\onsen\stylus\components\list.styl" />
+    <Content Include="vendors\onsen\stylus\components\modal.styl" />
+    <Content Include="vendors\onsen\stylus\components\navigation-bar.styl" />
+    <Content Include="vendors\onsen\stylus\components\notification.styl" />
+    <Content Include="vendors\onsen\stylus\components\page.styl" />
+    <Content Include="vendors\onsen\stylus\components\popover.styl" />
+    <Content Include="vendors\onsen\stylus\components\radio-button.styl" />
+    <Content Include="vendors\onsen\stylus\components\range.styl" />
+    <Content Include="vendors\onsen\stylus\components\search-input.styl" />
+    <Content Include="vendors\onsen\stylus\components\switch.styl" />
+    <Content Include="vendors\onsen\stylus\components\tab-bar.styl" />
+    <Content Include="vendors\onsen\stylus\components\text-input.styl" />
+    <Content Include="vendors\onsen\stylus\components\textarea.styl" />
+    <Content Include="vendors\onsen\stylus\components\toolbar-button.styl" />
+    <Content Include="vendors\onsen\stylus\components\util.styl" />
+    <Content Include="vendors\onsen\stylus\custom-theme.stylus" />
+    <Content Include="vendors\onsen\stylus\dark-theme.styl" />
+    <Content Include="vendors\onsen\stylus\default.styl" />
+    <Content Include="vendors\onsen\stylus\purple-theme.styl" />
+    <Content Include="vendors\onsen\stylus\sunshine-theme.styl" />
+    <Content Include="merges\android\scripts\android2.3-jscompat.js" />
+    <Content Include="merges\android\scripts\platformOverrides.js" />
+    <Folder Include="merges\ios\" />
+    <Content Include="merges\windows\scripts\platformOverrides.js" />
+    <Content Include="merges\windows\scripts\winstore-jscompat.js" />
+    <Folder Include="merges\wp8\" />
+    <Folder Include="res\icons\android\" />
+    <Folder Include="res\icons\ios\" />
+    <Folder Include="res\icons\wp8\" />
+    <Folder Include="res\icons\windows\" />
+    <Folder Include="res\screens\android\" />
+    <Folder Include="res\screens\ios\" />
+    <Folder Include="res\screens\windows\" />
+    <Folder Include="res\screens\wp8\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="index.html" />
+    <Content Include="js\index.js" />
+    <Content Include="js\platformOverrides.js" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\CHANGELOG.md" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\LICENSE" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\README.md" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\src\android\AppVersion.java" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\src\ios\AppVersion.h" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\src\ios\AppVersion.m" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\src\windows8\AppVersionProxy.js" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\src\wp8\AppVersion.cs" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\VERSION" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\www\AppVersionPlugin.js" />
+    <Content Include="plugins\cordova-plugin-app-version-develop\www\blackberry10\AppVersionProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\.gitignore" />
+    <Content Include="plugins\cordova-plugin-device-master\CONTRIBUTING.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\de\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\es\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\fr\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\it\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\ja\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\ko\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\pl\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\ru\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\doc\zh\index.md" />
+    <Content Include="plugins\cordova-plugin-device-master\LICENSE" />
+    <Content Include="plugins\cordova-plugin-device-master\NOTICE" />
+    <Content Include="plugins\cordova-plugin-device-master\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-device-master\README.md" />
+    <Content Include="plugins\cordova-plugin-device-master\RELEASENOTES.md" />
+    <Content Include="plugins\cordova-plugin-device-master\src\android\Device.java" />
+    <Content Include="plugins\cordova-plugin-device-master\src\blackberry10\index.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\browser\DeviceProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\firefoxos\DeviceProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\ios\CDVDevice.h" />
+    <Content Include="plugins\cordova-plugin-device-master\src\ios\CDVDevice.m" />
+    <Content Include="plugins\cordova-plugin-device-master\src\tizen\DeviceProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\ubuntu\device.cpp" />
+    <Content Include="plugins\cordova-plugin-device-master\src\ubuntu\device.h" />
+    <Content Include="plugins\cordova-plugin-device-master\src\ubuntu\device.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\windows8\DeviceProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\windows\DeviceProxy.js" />
+    <Content Include="plugins\cordova-plugin-device-master\src\wp\Device.cs" />
+    <Content Include="plugins\cordova-plugin-device-master\tests\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-device-master\tests\tests.js" />
+    <Content Include="plugins\cordova-plugin-device-master\www\device.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\.gitignore" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\CONTRIBUTING.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\de\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\es\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\fr\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\it\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\ja\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\ko\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\pl\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\ru\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\doc\zh\index.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\LICENSE" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\NOTICE" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\README.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\RELEASENOTES.md" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\android\Notification.java" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\blackberry10\index.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\firefoxos\notification.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ios\CDVNotification.bundle\beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ios\CDVNotification.h" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ios\CDVNotification.m" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ubuntu\notification.cpp" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ubuntu\notification.h" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\ubuntu\notification.qml" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\windows8\NotificationProxy.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\wp\notification-beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\wp\Notification.cs" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\wp\NotificationBox.xaml" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\src\wp\NotificationBox.xaml.cs" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\tests\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\tests\tests.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\android\notification.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\blackberry10\beep.js" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\blackberry10\notification-beep.wav" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\danger-press.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\danger.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\default.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\gradient.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\notification.css" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\pattern.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\firefoxos\recommend.png" />
+    <Content Include="plugins\cordova-plugin-dialogs-master\www\notification.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\.gitignore" />
+    <Content Include="plugins\cordova-plugin-vibration-master\CONTRIBUTING.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\de\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\es\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\fr\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\it\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\ja\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\ko\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\pl\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\ru\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\doc\zh\index.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\LICENSE" />
+    <Content Include="plugins\cordova-plugin-vibration-master\NOTICE" />
+    <Content Include="plugins\cordova-plugin-vibration-master\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-vibration-master\README.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\RELEASENOTES.md" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\android\Vibration.java" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\index.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\.cproject" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\.project" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\device\libVibration.so" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\public\plugin.cpp" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\public\plugin.h" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\public\tokenizer.cpp" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\public\tokenizer.h" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\simulator\libVibration.so" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\src\vibration_js.cpp" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\blackberry10\native\src\vibration_js.hpp" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\firefoxos\VibrationProxy.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\ios\CDVVibration.h" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\ios\CDVVibration.m" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\tizen\VibrationProxy.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\ubuntu\vibration.cpp" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\ubuntu\vibration.h" />
+    <Content Include="plugins\cordova-plugin-vibration-master\src\wp\Vibration.cs" />
+    <Content Include="plugins\cordova-plugin-vibration-master\tests\plugin.xml" />
+    <Content Include="plugins\cordova-plugin-vibration-master\tests\tests.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\www\blackberry10\vibrate.js" />
+    <Content Include="plugins\cordova-plugin-vibration-master\www\vibration.js" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\.fetch.json" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\index.html" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\LICENSE" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\plugin.xml" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\README.md" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\src\android\CallbackProgressDialog.java" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\src\android\SpinnerDialog.java" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\src\ios\CDVSpinnerDialog.h" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\src\ios\CDVSpinnerDialog.m" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\src\wp\SpinnerDialog.cs" />
+    <Content Include="plugins\hu.dpal.phonegap.plugins.SpinnerDialog\www\spinner.js" />
+    <Content Include="res\icons\android\icon-36-ldpi.png" />
+    <Content Include="res\icons\android\icon-48-mdpi.png" />
+    <Content Include="res\icons\android\icon-72-hdpi.png" />
+    <Content Include="res\icons\android\icon-96-xhdpi.png" />
+    <Content Include="res\icons\ios\icon-40.png" />
+    <Content Include="res\icons\ios\icon-40-2x.png" />
+    <Content Include="res\icons\ios\icon-50.png" />
+    <Content Include="res\icons\ios\icon-50-2x.png" />
+    <Content Include="res\icons\ios\icon-57.png" />
+    <Content Include="res\icons\ios\icon-57-2x.png" />
+    <Content Include="res\icons\ios\icon-60.png" />
+    <Content Include="res\icons\ios\icon-60-2x.png" />
+    <Content Include="res\icons\ios\icon-72.png" />
+    <Content Include="res\icons\ios\icon-72-2x.png" />
+    <Content Include="res\icons\ios\icon-76.png" />
+    <Content Include="res\icons\ios\icon-76-2x.png" />
+    <Content Include="res\icons\ios\icon-small.png" />
+    <Content Include="res\icons\ios\icon-small-2x.png" />
+    <Content Include="res\icons\windows\logo.png" />
+    <Content Include="res\icons\windows\smalllogo.png" />
+    <Content Include="res\icons\windows\Square150x150Logo.scale-240.png" />
+    <Content Include="res\icons\windows\Square44x44Logo.scale-240.png" />
+    <Content Include="res\icons\windows\Square71x71Logo.scale-240.png" />
+    <Content Include="res\icons\windows\storelogo.png" />
+    <Content Include="res\icons\windows\StoreLogo.scale-240.png" />
+    <Content Include="res\icons\windows\Wide310x150Logo.scale-240.png" />
+    <Content Include="res\icons\wp8\icon-62-tile.png" />
+    <Content Include="res\icons\wp8\icon-173-tile.png" />
+    <Content Include="res\native\android\ant.properties" />
+    <Content Include="res\screens\android\screen-hdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-hdpi-portrait.png" />
+    <Content Include="res\screens\android\screen-ldpi-landscape.png" />
+    <Content Include="res\screens\android\screen-ldpi-portrait.png" />
+    <Content Include="res\screens\android\screen-mdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-mdpi-portrait.png" />
+    <Content Include="res\screens\android\screen-xhdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-xhdpi-portrait.png" />
+    <Content Include="res\screens\ios\screen-ipad-landscape.png" />
+    <Content Include="res\screens\ios\screen-ipad-landscape-2x.png" />
+    <Content Include="res\screens\ios\screen-ipad-portrait.png" />
+    <Content Include="res\screens\ios\screen-ipad-portrait-2x.png" />
+    <Content Include="res\screens\ios\screen-iphone-568h-2x.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait-2x.png" />
+    <Content Include="res\screens\windows\splashscreen.png" />
+    <Content Include="res\screens\windows\SplashScreen.scale-240.png" />
+    <Content Include="res\screens\wp8\screen-portrait.jpg" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <DefaultReferenceGroup>Implicit (Multi-Device Apps)</DefaultReferenceGroup>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptCompileOnSaveEnabled>false</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptCompileOnSaveEnabled>false</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Distribution'">
+    <TypeScriptCompileOnSaveEnabled>false</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CordovaTools\vs-mda-targets\Microsoft.MDA.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CordovaTools\vs-mda-targets\Microsoft.TypeScript.MDA.targets" />
+  <PropertyGroup>
+    <ProjectUISubcaption>Tools for Apache Cordova</ProjectUISubcaption>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetPlatformIdentifier>MDD</TargetPlatformIdentifier>
+  </PropertyGroup>
+  <Target Name="EnsureBuildPrerequisites">
+    <!-- These errors will trigger if building from inside Visual Studio and requirements could not be determined -->
+    <Error Condition="$(MDAPropertiesEvaluated) == 'true' And $(NodeJsDir) == ''" Text="Path to NodeJs could not be determined. Please check that NodeJs has been installed." />
+    <Error Condition="$(MDAPropertiesEvaluated) == 'true' And $(MDAVsixDir) == ''" Text="Path to the Visual Studio Extension for Tools for Apache Cordova could not be determined. Please check that the extension has been installed." />
+    <!-- These errors will trigger if building from outside Visual Studio (e.g. command line) and environment variables have not been set -->
+    <Error Condition="$(MDAPropertiesEvaluated) == '' And $(NodeJsDir) == ''" Text="Path to NodeJs has not been specified. Please check that NodeJs has been installed and set the NodeJsDir environment variable before building." />
+    <Error Condition="$(MDAPropertiesEvaluated) == '' And $(MDAVsixDir) == ''" Text="Path to Visual Studio Extension for Tools for Apache Cordova has not been specified. Please install it and set the MDAVsixDir environment variable before building." />
+    <!-- Sanity check that things exist in the specified places. These are more likely to fail if building outside Visual Studio and the required environment variables have not been set, or set incorrectly. -->
+    <Error Condition="!Exists('$(NodeJsDir)') Or !Exists('$(NodeJsDir)\node.exe')" Text="The specified NodeJs directory $(NodeJsDir) either does not exist, or does not contain node.exe. Please check that NodeJs has been installed, and set the NodeJsDir variable to the correct directory." />
+    <Error Condition="!Exists('$(MDAVsixDir)') Or !Exists('$(MDAVsixDir)\packages\vs-mda')" Text="The specified directory to the Visual Studio extension $(MDAVsixDir)\node.exe either does not exist, or does not contain a packages\vs-mda sub-directory. Please check that the extension directory exists and set the MDAVsixDir variable to the correct directory." />
+    <!-- Installs (if necessary) the supporting Nodejs module -->
+    <Exec Command="&quot;$(MDAVsixDir)&quot;\packages\vs-mda\install &quot;$(NodeJsDir)&quot; &quot;$(MDAVsixDir)&quot;\packages\vs-mda" />
+  </Target>
+</Project>

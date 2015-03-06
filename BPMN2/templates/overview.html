@@ -1,0 +1,740 @@
+﻿<link rel="stylesheet" href="css/tutorial.css" />
+<style>
+    table.symbol {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        table.symbol th {
+            width: 50%;
+            background-color: #eee;
+        }
+
+        table.symbol td, table.symbol th {
+            text-align: center;
+            border: solid;
+            border-width: 1px;
+            border-color: #777;
+        }
+
+        table.symbol td, table.symbol th {
+            font-size: 12px;
+        }
+
+        table.symbol img {
+            width: 90%;
+        }
+
+    table.event {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        table.event th {
+            width: 33%;
+            background-color: #eee;
+        }
+
+        table.event img {
+            width: 50px;
+        }
+
+        table.event td, table.event th {
+            text-align: center;
+            border: solid;
+            border-width: 1px;
+            border-color: #777;
+        }
+
+        table.event td, table.event th {
+            font-size: 12px;
+        }
+</style>
+<h1>Symbol Overview</h1>
+<br />
+<table class="symbol">
+    <tr>
+        <th colspan="2">Participants</th>
+    </tr>
+    <tr>
+        <td>
+            Pool
+        </td>
+        <td><img src="images/Pool.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Lane
+        </td>
+        <td><img src="images/Lane.png" /></td>
+    </tr>
+
+</table>
+
+<table class="symbol">
+    <tr>
+        <th colspan="2">Activities</th>
+    </tr>
+    <tr>
+        <td>
+            Task
+        </td>
+        <td><img src="images/Task.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Sub Process
+        </td>
+        <td><img src="images/SubProcess.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Call Activity
+        </td>
+        <td><img src="images/Call Activity.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Event Sub Process
+        </td>
+        <td><img src="images/Event SubProcess.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Transaction Sub Process
+        </td>
+        <td><img src="images/Transaction.png" /></td>
+    </tr>
+
+</table>
+
+<table class="symbol">
+    <tr>
+        <th colspan="2">Gateways</th>
+    </tr>
+    <tr>
+        <td>
+            Exclusive (XOR)
+        </td>
+        <td><img src="images/Exclusive Gateway.png" /><br /><img src="images/Exclusive Gateway2.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Inclusive (OR)
+        </td>
+        <td><img src="images/Inclusive Gateway.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Event Based
+        </td>
+        <td><img src="images/Event Based Gateway.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Parallel (AND)
+        </td>
+        <td><img src="images/Parallel Gateway.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Complex
+        </td>
+        <td><img src="images/Complex Gateway.png" /></td>
+    </tr>
+
+</table>
+
+<table class="symbol">
+    <tr>
+        <th colspan="2">Artifacts</th>
+    </tr>
+    <tr>
+        <td>
+            Text Annotation
+        </td>
+        <td><img src="images/Text Annotation.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Group
+        </td>
+        <td><img src="images/Group.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Data Object
+        </td>
+        <td><img src="images/DataObject.png" /></td>
+    </tr>
+    <tr>
+        <td>
+            Data Store
+        </td>
+        <td><img src="images/DataStore.png" /></td>
+    </tr>
+
+
+</table>
+
+
+<table class="event">
+    <tr>
+        <th colspan="3">Events</th>
+
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>None</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Normal Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/None End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Message</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Message Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Message Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Message Sub Process Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Message Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Message Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Message Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Message Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Message End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Timer</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Timer Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Timer Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Timer Sub Process Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Timer Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Timer Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Timer Catch and Boundary Non Interupt Intermediate Event.png" /></td>
+
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Conditional</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Conditional Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Conditional Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Conditional Sub Process Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Conditional Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Conditional Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Conditional Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Link</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Link Catch Intermediate Event Timer.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Link Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Signal</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Signal Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Signal Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Signal Sub Process Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Signal Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Signal Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Signal Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Signal Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Signal End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Error</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Error Start Event.png" /></td>
+
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Error Throw Intermediate Event.png" /></td>
+
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Error End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Escalation</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Escalaltion Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Escalaltion Sub Process Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Escalaltion Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Escalaltion Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Escalation Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Escalation End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Termination</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Termination End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Compensation</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Compensation Start Event.png" /></td>
+
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+
+        <td><img src="images/Compensation Boundary Intermediate Event.png" /></td>
+
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Compensation Throw Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Compensation End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Cancel</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Cancel Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Cancel End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Multiple</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Multiple Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Multiple Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Multiple SubProcess Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Multiple Catch and  Bounday Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Multiple Catch and  Bounday Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Multiple Bounday Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td><img src="images/Mutile Intermediate Throw Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td><img src="images/Multiple End Event.png" /></td>
+    </tr>
+</table>
+
+<table class="event">
+    <tr>
+        <th colspan="2">Type</th>
+        <th>Multiple Parallel</th>
+    </tr>
+    <tr>
+        <td rowspan="3">Start</td>
+        <td>Normal</td>
+        <td><img src="images/Parallel Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess</td>
+        <td><img src="images/Parallel Normal and SubProcess Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Event Subprocess non-interrupt</td>
+        <td><img src="images/Parallel SubProcess Non Interupt Start Event.png" /></td>
+    </tr>
+    <tr>
+        <td rowspan="4">Intermediate</td>
+        <td>Catch</td>
+        <td><img src="images/Parallel Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary</td>
+        <td><img src="images/Parallel Catch and  Boundary Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Boundary Non-Interrupt</td>
+        <td><img src="images/Parallel Boundary Non Interupt Intermediate Event.png" /></td>
+    </tr>
+    <tr>
+        <td>Throw</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="1">End</td>
+        <td>Normal</td>
+        <td></td>
+    </tr>
+</table>
