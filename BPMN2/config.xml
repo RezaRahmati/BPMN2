@@ -9,4 +9,7 @@
   <preference name="windows-target-version" value="8.0" />
   <preference name="windows-phone-target-version" value="8.1" />
   <vs:platformSpecificValues />
+  <vs:plugin name="com.smartmobilesoftware.androidinappbilling" version="3.0.2" >
+    <param name="BILLING_KEY" value="MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDMs3kWln0sTciOeQV0k4Uz+eDwHK6C9RCfUCo2q//tKVxJ2uiX5mVPwii5AEIyN1PM47S9ezJqWgIFpbf+Zgnx8qviI1fDhM4Bjmdz37AsXS06G+/0/Bik1YGmyqOBqJ/A6IukcWAldSU2BegfDaj3E/0+tRxB2SRaBIbKh3JMG9pw++0oc7tMIopWfFMRw/IoSpCNbBMAtn516Ryg83rH/VKTPGU8ZlcbRlrW0RUCAwEAAQ==" />
+  </vs:plugin>
 </widget>
