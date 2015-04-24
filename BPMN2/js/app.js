@@ -1,85 +1,244 @@
 ﻿(function () {
     'use strict';
-    var module = angular.module('app', ['onsen', 'ngCordova', 'ngSanitize']);
+    var module = angular.module('app', ['onsen', 'ngCordova', 'ngSanitize', 'ngStorage']);
+    module.value('isPro', { value: false });;
 
-    module.controller('AppController', function ($scope, $categories) {
-        $scope.doSomething = function () {
-            setTimeout(function () {
-                alert('tappaed');
-            }, 100);
-        };
+    module.controller('AppController', function ($scope, $categories, NotificationService, $localStorage, $filter, isPro, $location, $anchorScroll) {
+        $scope.$storage = $localStorage;
+        if ($scope.$storage.lastRun == undefined) {
+            var n = Number($filter('date')(Date.now(), "yyMMddHHmmss"));
+            if (n % 2 != 0) {
+                n += 1;
+            }
+            $scope.$storage.lastRun = n;
+        }
+        else {
+            var m = $scope.$storage.lastRun;
+            var n = Number($filter('date')(Date.now(), "yyMMddHHmmss"));
+            if (m % 2 == 0) {
+                if (n % 2 != 0) {
+                    n += 1;
+                }
+            }
+            else {
+                if (n % 2 == 0) {
+                    n += 1;
+                }
+            }
+            $scope.$storage.lastRun = n;
+        }
+
+        isPro.value = $scope.$storage.lastRun % 2 != 0;
+        isPro.value = false;
+
+        ons.ready(function () {
+            ons.setDefaultDeviceBackButtonListener(function () {
+                ons.notification.confirm({
+                    messageHTML: "<p style='direction:rtl;text-align:right'>" + "مي‌خواهيد از برنامه خارج شويد؟" + "</p>",
+                    title: "تاييد",
+                    buttonLabels: ['خير', 'بله'],
+                    callback: function (index) {
+                        if (index === 1) { // OK button
+                            navigator.app.exitApp();
+                        }
+                    }
+                });
+
+
+            });
+
+        });
+
     });
 
     module.controller('MainController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService) {
     });
 
-    module.controller('CategoryController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories) {
+    module.controller('CategoryController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories, ArraySearchService) {
         $scope.items = $categories.items;
 
 
-        $scope.showDetail = function (index) {
-            var selectedItem = $categories.items[index];
+        $scope.showDetail = function (index, id) {
+            var selectedItem = ArraySearchService.searchByID($categories.items, id);
             $categories.selectedItem = selectedItem;
             $scope.navi.pushPage('items.html', { title: selectedItem.title });
         };
     });
 
-    module.controller('SearchController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories) {
+    module.controller('SearchController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories, isPro, ArraySearchService) {
+        if (isPro.value) {
+            for (var i = 0; i < $categories.items.length; i++) {
+                for (var j = 0; j < $categories.items[i].items.length; j++) {
+                    $categories.items[i].items[j].pro = false;
+                }
+            }
+        }
         $scope.items = $categories.items;
 
 
-        $scope.showDetail = function (categoryindex, symbolindex) {
-            var selectedItem = $categories.items[categoryindex];
-            var selectedSymbolItem = selectedItem.items[symbolindex]
+        $scope.showDetail = function (categoryindex, symbolindex, id) {
+            //var selectedItem = $categories.items[categoryindex];
+            //var selectedSymbolItem = selectedItem.items[symbolindex];
+            var selectedSymbolItem = ArraySearchService.searchByID2($categories.items, id);
+
             $categories.selectedSymbolItem = selectedSymbolItem;
             $scope.navi.pushPage('detail.html', { title: selectedSymbolItem.title });
         };
     });
 
-    module.controller('ItemsController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories) {
+    module.controller('ItemsController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories, isPro, ArraySearchService) {
+        if (isPro.value) {
+            for (var i = 0; i < $categories.items.length; i++) {
+                for (var j = 0; j < $categories.items[i].items.length; j++) {
+                    $categories.items[i].items[j].pro = false;
+                }
+            }
+        }
         $scope.item = $categories.selectedItem;
 
-        $scope.showDetail = function (index) {
-            var selectedItem = $categories.selectedItem.items[index];
+        $scope.showDetail = function (index, id) {
+            var selectedItem = ArraySearchService.searchByID($categories.selectedItem.items, id);
             $categories.selectedSymbolItem = selectedItem;
             $scope.navi.pushPage('detail.html', { title: selectedItem.title });
         };
     });
 
-    module.controller('DetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories) {
-        $scope.item = $categories.selectedSymbolItem;
+    module.controller('DetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories, isPro, ProService) {
+        $scope.isPurchasing = false;
+        if ($categories.selectedSymbolItem.pro && !isPro.value) {
+            $scope.item = {
+                title: $categories.selectedSymbolItem.title,
+                image: $categories.selectedSymbolItem.image,
+                usage: '',
+                pro: true,
+                desc: '<p>براي مشاهده بايد نسخه خود را به نسخه حرفه‌اي ارتقا دهيد</p>'
+            };
+        }
+        else {
+            $scope.item = $categories.selectedSymbolItem;
+        }
+
+        $scope.upgradeToPro = function () {
+            $scope.isPurchasing = true;
+
+            ProService.upgrade().then(
+                function resolved(resp) {
+                    $scope.item = $categories.selectedSymbolItem;
+                    for (var i = 0; i < $categories.items.length; i++) {
+                        for (var j = 0; j < $categories.items[i].items.length; j++) {
+                            $categories.items[i].items[j].pro = false;
+                        }
+                    }
+
+                    $scope.$apply();
+                },
+                function rejected(error) {
+                    $scope.isPurchasing = false;
+                }
+
+                );
+        };
 
     });
 
-    module.controller('MistakesController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $mistakes) {
+    module.controller('MistakesController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $mistakes, isPro, ArraySearchService) {
+        if (isPro.value) {
+            for (var i = 0; i < $mistakes.items.length; i++) {
+                $mistakes.items[i].pro = false;
+            }
+        }
         $scope.items = $mistakes.items;
 
 
-        $scope.showDetail = function (index) {
-            var selectedItem = $mistakes.items[index];
+        $scope.showDetail = function (index, id) {
+            var selectedItem = ArraySearchService.searchByID($mistakes.items, id);
             $mistakes.selectedItem = selectedItem;
             $scope.navi.pushPage('mistakeDetail.html', { title: selectedItem.title });
         };
     });
 
-    module.controller('MistakeDetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $mistakes) {
-        $scope.item = $mistakes.selectedItem;
+    module.controller('MistakeDetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $mistakes, isPro, ProService) {
+        $scope.isPurchasing = false;
+        if ($mistakes.selectedItem.pro && !isPro.value) {
+            $scope.item = {
+                title: $mistakes.selectedItem.title,
+                solution: '',
+                pro: true,
+                problem: '<p>براي مشاهده بايد نسخه خود را به نسخه حرفه‌اي ارتقا دهيد</p>'
+            };
+        }
+        else {
+            $scope.item = $mistakes.selectedItem;
+        }
 
+        $scope.upgradeToPro = function () {
+            $scope.isPurchasing = true;
+
+            ProService.upgrade().then(
+                function resolved(resp) {
+                    $scope.item = $mistakes.selectedItem;
+                    for (var i = 0; i < $mistakes.items.length; i++) {
+                        $mistakes.items[i].pro = false;
+                    }
+
+                    $scope.$apply();
+                },
+                function rejected(error) {
+                    $scope.isPurchasing = false;
+                }
+
+                );
+        };
     });
 
-    module.controller('TutorialController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $tutorials) {
+    module.controller('TutorialController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $tutorials, isPro, ArraySearchService) {
+        if (isPro.value) {
+            for (var i = 0; i < $tutorials.items.length; i++) {
+                $tutorials.items[i].pro = false;
+            }
+        }
         $scope.items = $tutorials.items;
 
 
-        $scope.showDetail = function (index) {
-            var selectedItem = $tutorials.items[index];
+        $scope.showDetail = function (index, id) {
+            var selectedItem = ArraySearchService.searchByID($tutorials.items, id);
+            //var selectedItem = $tutorials.items[index];
             $tutorials.selectedItem = selectedItem;
             $scope.navi.pushPage('tutorialDetail.html', { title: selectedItem.title });
         };
     });
 
-    module.controller('TutorialDetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $tutorials) {
-        $scope.item = $tutorials.selectedItem;
+    module.controller('TutorialDetailController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $tutorials, isPro, ProService) {
+        $scope.isPurchasing = false;
+        if ($tutorials.selectedItem.pro && !isPro.value) {
+            $scope.item = {
+                title: $tutorials.selectedItem.title,
+                pro: false,
+                url: 'buypro.html'
+            };
+        }
+        else {
+            $scope.item = $tutorials.selectedItem;
+        }
+
+        $scope.upgradeToPro = function () {
+            $scope.isPurchasing = true;
+
+            ProService.upgrade().then(
+                function resolved(resp) {
+                    $scope.item = $tutorials.selectedItem;
+                    for (var i = 0; i < $tutorials.items.length; i++) {
+                        $tutorials.items[i].pro = false;
+                    }
+
+                    $scope.$apply();
+                },
+                function rejected(error) {
+                    $scope.isPurchasing = false;
+                }
+
+                );
+        };
 
     });
 
@@ -101,137 +260,339 @@
         }
     });
 
+    module.service("ProService", function (InAppService, $localStorage, $filter, isPro, $q) {
+
+        function upgrade() {
+            var deferred = $q.defer();
+            try {
+                InAppService.init().then(
+                    function resolved(resp) {
+                        InAppService.subscribe('BPMNPro').then(
+                                        function resolved(resp) {
+
+                                            try {
+                                                var storage = $localStorage;
+                                                var n = Number($filter('date')(Date.now(), "yyMMddHHmmss"));
+                                                if (n % 2 == 0) {
+                                                    n += 1;
+                                                }
+                                                storage.lastRun = n;
+                                                isPro.value = storage.lastRun % 2 != 0;
+                                            }
+                                            finally {
+                                                deferred.resolve('OK');
+
+                                                //$scope.isPurchasing = false;
+                                            }
+                                        },
+                                        function rejected(error) {
+                                            deferred.reject(error);
+                                            //$scope.isPurchasing = false;
+                                        });
+                    },
+                    function rejected(error) {
+                        deferred.reject(error);
+                    });
+
+            }
+            finally {
+            }
+            return deferred.promise;
+        }
+
+        return {
+            upgrade: upgrade
+        };
+
+
+    });
+
+    module.service("ArraySearchService", function () {
+        function searchByID(myArray, id) {
+            for (var i = 0; i < myArray.length; i++) {
+                if (myArray[i].id === id) {
+                    return myArray[i];
+                }
+            }
+            return null;
+        }
+
+        function searchByID2(myArray, id) {
+            for (var i = 0; i < myArray.length; i++) {
+                for (var j = 0; j < myArray[i].items.length; j++) {
+                    if (myArray[i].items[j].id === id) {
+                        return myArray[i].items[j];
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        return {
+            searchByID: searchByID,
+            searchByID2: searchByID2
+        }
+    });
+
+    module.factory('InAppService', function (LogService, SpinnerService, NotificationService, $q) {
+
+        function successHandler(result, deferred) {
+            var strResult = "";
+            if (typeof result === 'object') {
+                strResult = JSON.stringify(result);
+            } else {
+                strResult = result;
+            }
+            SpinnerService.hide();
+            var mes = "SUCCESS: \r\n" + strResult;
+            //NotificationService.alert(mes, "پيغام", "تاييد");
+            LogService.log(mes);
+            deferred.resolve('OK');
+        }
+
+        function errorHandler(error, deferred) {
+            SpinnerService.hide();
+            var mes = "خطا: \r\n" + error;
+            if (error.indexOf('response: 6:Error') > -1) {
+                mes = "خطا در ارتباط با ماركت، لطفا لاگين بودن با كاربر خود به بازار، اتصال به اينترنت و عدم استفاده از فيلتر شكن را چك نماييد";
+            }
+            NotificationService.alert(mes, "خطا", "تاييد");
+            LogService.log(mes);
+            deferred.reject();
+        }
+
+        function init() {
+            SpinnerService.show('در حال ارتباط با ماركت');
+            var deferred = $q.defer();
+            inappbilling.init(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) }, { showLog: true });
+            return deferred.promise;
+        }
+
+        function buy(productKey) {
+            SpinnerService.show('در حال بازكردن پنجره خريد');
+            var deferred = $q.defer();
+            // make the purchase
+            inappbilling.buy(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) }, productKey);
+            return deferred.promise;
+
+        }
+
+        // Click on ownedProducts button
+        function ownedProducts() {
+            SpinnerService.show('در حال دريافت اطلاعات محوصلات خريداري شده');
+            var deferred = $q.defer();
+            // Initialize the billing plugin
+            inappbilling.getPurchases(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) });
+            return deferred.promise;
+        }
+
+        // Click on Consume purchase button
+        function consumePurchase(productKey) {
+            SpinnerService.show('در حال مصرف كردن قلم');
+            var deferred = $q.defer();
+            inappbilling.consumePurchase(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) }, productKey);
+            return deferred.promise;
+        }
+
+        // Click on subscribe button
+        function subscribe(productKey) {
+            SpinnerService.show('در حال بازكردن پنجره خريد');
+            var deferred = $q.defer();
+            // make the purchase
+            inappbilling.subscribe(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) }, productKey);
+            return deferred.promise;
+        }
+
+        // Click on Query Details button
+        function getDetails(products) {
+            SpinnerService.show('در حال دريافت جزئيات قلم');
+            var deferred = $q.defer();
+            // Query the store for the product details
+            //["Coin", "Pro"]
+            inappbilling.getProductDetails(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) }, products);
+            return deferred.promise;
+        }
+
+        // Click on Get Available Products button
+        function getAvailable() {
+            SpinnerService.show('در حال دريافت اقلام معتبر براي خريد');
+            var deferred = $q.defer();
+            // Get the products available for purchase.
+            inappbilling.getAvailableProducts(function (result) { successHandler(result, deferred) }, function (error) { errorHandler(error, deferred) });
+            return deferred.promise;
+        }
+
+        return {
+            init: init,
+            buy: buy,
+            ownedProducts: ownedProducts,
+            consumePurchase: consumePurchase,
+            subscribe: subscribe,
+            getDetails: getDetails,
+            getAvailable: getAvailable,
+        };
+
+    });
+
+
     module.factory('$tutorials', function () {
         var data = {};
 
         data.items = [
 
             {
+                id: 1,
                 title: 'Introduction',
                 url: 'preface.html',
                 pro: false,
             },
             {
+                id: 2,
                 title: 'Symbol Overview',
                 url: 'overview.html',
                 pro: false,
             },
             {
+                id: 3,
                 title: 'Pool',
                 url: 'pool.html',
                 pro: true,
             },
             {
+                id: 4,
                 title: 'Lane',
                 url: 'lane.html',
                 pro: true,
             },
             {
+                id: 5,
                 title: 'Task',
                 url: 'task.html',
                 pro: false,
             },
             {
+                id: 6,
                 title: 'SubProcess',
                 url: 'subProcess.html',
                 pro: false,
             },
             {
+                id: 7,
                 title: 'Call Activity',
                 url: 'call.html',
                 pro: true,
             },
             {
+                id: 8,
                 title: 'Adhoc SubProcess',
                 url: 'adhoc.html',
                 pro: true,
             },
             {
+                id: 9,
                 title: 'Event Subprocess',
                 url: 'eventSub.html',
                 pro: true,
             },
             {
+                id: 10,
                 title: 'Exclusive Gateway (XOR)',
                 url: 'exclusive.html',
                 pro: false,
             },
             {
+                id: 11,
                 title: 'Parallel Gateway (AND)',
                 url: 'parallel.html',
                 pro: true,
             },
             {
+                id: 12,
                 title: 'Inclusive Gateway (OR)',
                 url: 'inclusive.html',
                 pro: false,
             },
             {
+                id: 13,
                 title: 'EventBased Gateway',
                 url: 'eventBasedGateway.html',
                 pro: true,
             },
             {
+                id: 14,
                 title: 'Events Basic Concept',
                 url: 'eventConcept.html',
                 pro: false,
             },
             {
+                id: 15,
                 title: 'Message Event',
                 url: 'messageEvent.html',
                 pro: true,
             },
             {
+                id: 16,
                 title: 'Timer Event',
                 url: 'timerEvent.html',
                 pro: true,
             },
             {
+                id: 17,
                 title: 'Error Event',
                 url: 'errorEvent.html',
                 pro: true,
             },
             {
+                id: 18,
                 title: 'Conditional Event',
                 url: 'conditionalEvent.html',
                 pro: true,
             },
             {
+                id: 19,
                 title: 'Signal Event',
                 url: 'signalEvent.html',
                 pro: true,
             },
             {
+                id: 20,
                 title: 'Termination Event',
                 url: 'terminationEvent.html',
                 pro: true,
             },
             {
+                id: 21,
                 title: 'Link Event',
                 url: 'linkEvent.html',
                 pro: true,
             },
             {
+                id: 22,
                 title: 'Compensation Event',
                 url: 'compensationEvent.html',
                 pro: true,
             },
             {
+                id: 23,
                 title: 'Multiple Event',
                 url: 'multipleEvent.html',
                 pro: true,
             },
             {
+                id: 24,
                 title: 'Parallel Event',
                 url: 'parallelEvent.html',
                 pro: true,
             },
             {
+                id: 25,
                 title: 'Escalaltion Event',
                 url: 'escalaltionEvent.html',
                 pro: true,
             },
             {
+                id: 26,
                 title: 'Cancel Event',
                 url: 'cancelEvent.html',
                 pro: true,
@@ -248,6 +609,7 @@
 
         data.items = [
             {
+                id: 1,
                 title: 'Implicit or explicit process events',
                 problem: 'BPMN specification defines start and end events as optional. However, their usage is highly recommended, since each process starts and ends somewhere! Without explicitly using start and end events, a regular BPMN process might look the process in Figure 7. This modeling approach is undesirable and could lead to misinterpretations.\
 <img class="descImage fillImage" src="images/mistakes/diagram-7.jpg" />',
@@ -257,6 +619,7 @@ Note that if a process includes a start event, an end event is mandatory.\
                 pro: false,
             },
             {
+                id: 2,
                 title: 'Inadequate event naming',
                 problem: 'Modelers will commonly name start and end events according their role, e.g. “Process start” or “Process end”. Since a start event symbol represents the process start and an end event symbol represents the process end, such naming is redundant.\
 <img class="descImage fillImage" src="images/mistakes/diagram-9.jpg" />',
@@ -265,6 +628,7 @@ Note that if a process includes a start event, an end event is mandatory.\
             }
             ,
             {
+                id: 3,
                 title: 'Equal events',
                 problem: 'The BPMN specification allows the use of multiple start or end events at the same process level. Beware!. If several events share common naming and symbols, they actually represent a single event. Such a modeling approach might still be useful, since several equal events might reduce the number of process paths and path intersections, thus making it more easy to understand. However, it could lead to misinterpretations, as presented in the next figure.\
 <img class="descImage fillImage" src="images/mistakes/diagram-10.jpg" />\
@@ -275,6 +639,7 @@ The process in Figure 9 regularly includes two start and two end events. However
             }
                ,
             {
+                id: 4,
                 title: 'End event vs. Terminate event',
                 problem: 'Modelers commonly over-use terminate end events instead of using simple end events, because they perceive a terminate end event as a “stronger” end of a process. This is partially true, but the devil is hidden in the detail! For example, the interpretation of the process, which is presented on Figure 13 is the following: The process first performs task 1 and then continues in both directions (parallel split), where task 3 is performed several times on different data sets (task 3 uses the multiple-instances marker “|||”).\
 The process is terminated when it reaches the terminate-end event. A terminate end event means that if one of  the paths reaches an end, all other process paths (currently performing activities and activities which are waiting to be performed) are ended immediately. This could correspond to a real-life process situation, but it is very unlikely.\
@@ -286,6 +651,7 @@ Most commonly, a process finishes successfully once all started process activiti
             }
                ,
             {
+                id: 5,
                 title: 'Missing Sequence flows',
                 problem: 'When modeling multiple pools (e.g. in business-to-business situations, where two or more processes interact), a common mistake is when activities in a Pool are not connected to sequence flows. The most frequent reason for this mistake is that a modeler may treat multiple pools as a single process and incorrectly interpret messages flows as way of indicating a sequence of activities. This kind of process model  is not valid because the sequence of activities  has not been clearly defined.\
 <img class="descImage fillImage" src="images/mistakes/diagram-4.jpg" />',
@@ -298,6 +664,7 @@ Most commonly, a process finishes successfully once all started process activiti
             }
                ,
             {
+                id: 6,
                 title: 'Incorrect Usage of Sequence Flows',
                 problem: 'Another common problem when modeling multiple pools is that a modeler may treat a set of pools as a single pool with multiple lanes. In this case, a modeler uses sequence flows between pools. The end result will be an incorrect model (see figure 2) of a single process that spreads over the boundaries of the pool.\
 <img class="descImage fillImage" src="images/mistakes/diagram-6.jpg" />\
@@ -309,6 +676,7 @@ Most commonly, a process finishes successfully once all started process activiti
                 pro: true,
             },
         {
+            id: 7,
             title: 'Improper use of Lanes',
             problem: 'Sometimes a modeler  may incorrectly treat a lane as a pool, thereby representing individual processes within separated  lanes. This is wrong, because a lane is just a “activity-classifying mechanism”. The figure below shows this mistake.\
 <img class="descImage fillImage" src="images/mistakes/diagram-82.jpg" />\
@@ -320,6 +688,7 @@ Nevertheless it is important to mention that it is not syntactically wrong if a 
             pro: true,
         },
                 {
+                    id: 8,
                     title: 'Using Sub-processes Instead of Tasks',
                     problem: 'BPMN modelers commonly misunderstand the two main activity types: a sub-process and tasks. They perceive a task as a “simple work unit” and a sub-process as a “more complex work unit”. This is partially true, however, let’s see a counterexample. In a real-world business process, the relative complexity of activities can be perceived or measured.\
 However, complexity is not a decision-making  factor when selecting a sub-process or a task in a process model. A modeler should be aware that a sub-process should be only used if its details can be defined in terms of the underlying tasks or sub-processes.  This means that a complex real world activity should be modeled as a task if it cannot be additionally decomposed into sub-elements, whereas a simple activity can be modeled as a sub-process if a modeler decides to additionally decompose it.\
@@ -331,6 +700,7 @@ However, complexity is not a decision-making  factor when selecting a sub-proces
                 }
                ,
             {
+                id: 9,
                 title: 'Using Loops Instead of Multiple Instances',
                 problem: 'It is often unclear which type of Activity loop should be use: a standard loop or a multiple instance marker. Furthermore, the BPMN 2.0 specification divides multiple instance activities into ones that are sequential or parallel .\
 <img class="descImage fillImage" src="images/mistakes/diagram-63.jpg" />\
@@ -345,6 +715,7 @@ However, complexity is not a decision-making  factor when selecting a sub-proces
                 pro: true,
             },
                 {
+                    id: 10,
                     title: 'Addressing Multiple Lanes',
                     problem: 'Activities are commonly classified into different lanes according to who performs or is responsible for them. Based on this presumption, a modeler might incorrectly model a business process in the following way (figure 8):\
 <ul><li>Task 1 is performed by Person B,</li>\
@@ -359,6 +730,7 @@ This approach is wrong. A flow element (activity, gateway and event) can be posi
                     pro: true,
                 },
                 {
+                    id: 11,
                     title: 'Message Events Vs. Message Tasks',
                     problem: '<p>Before the BPMN 2.0 specification, there was never any confusion between tasks and events. Tasks were treated as atomic activities in a process flow, which could not be broken down into finer detail, whereas events represented something that “happened” in the process and required a reaction.</p>\
 <p>However, since BPMN 2.0, different types of tasks can now be defined,  enabling modelers to represent more types of behavior. Among these, the new send and receive types have now blurred the line between tasks and events. In this article, we will discuss the differences between message events and the send and receive tasks.</p>\
@@ -423,6 +795,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
         data.items = [
             {
+                id: 1,
                 titleFa: '‌‌فعاليت',
                 title: 'Activity',
                 label: '10',
@@ -432,6 +805,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 items: [
 
                 {
+                    id: 10,
                     title: 'Simple Task',
                     image: 'Simple Task.png',
                     desc: 'براي نمايش انجام دادن يك فعاليت ساده استفاده مي شود.',
@@ -440,6 +814,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                 },
                 {
+                    id: 11,
                     title: 'Service Task',
                     image: 'Service Task.png',
                     desc: 'اين نماد نشان دهنده فراخواني يك سرويس مي باشد. از اين نماد در مدل سازي در BPMSها استفاده مي شود.',
@@ -448,6 +823,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                 },
                 {
+                    id: 12,
                     title: 'Manual Task',
                     image: 'Manual Task.png',
                     desc: 'اين نماد نشان دهنده فعاليتي است كه خارج از BPMS و به صورت دستي انجام مي شود.',
@@ -455,6 +831,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: false,
                 },
                 {
+                    id: 13,
                     title: 'User Task',
                     image: 'User Task.png',
                     desc: 'نشان دهنده فعاليتي است كه كاربر سيستم بايد انجام دهد. وقتي اجراي فرايند به اين قسمت مي رسد يك كار در كارتابل كاربر ايجاد مي شود. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
@@ -462,6 +839,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 14,
                     title: 'Send Task',
                     image: 'Send Task.png',
                     desc: 'اين نماد نشان دهنده فعاليتي است كه منجر به ارسال Message مي شود.',
@@ -469,6 +847,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 15,
                     title: 'Recieve Task',
                     image: 'Receive Task.png',
                     desc: 'اين نماد نشان دهنده فعاليتي است كه منجر به دريافت Message مي شود.',
@@ -476,6 +855,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 16,
                     title: 'Business Rule Task',
                     image: 'Business Rule Task.png',
                     desc: 'اين نماد نشان دهنده اجراي يك يا چند Business Rule مي باشد. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
@@ -483,6 +863,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 17,
                     title: 'Script Task',
                     image: 'Script Task.png',
                     desc: 'اين نماد نشان دهنده اجراي سيستمي يك فعاليت بر اساس دستورالعمل نوشته شده براي آن مي باشد. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
@@ -490,6 +871,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 18,
                     title: 'Call Activity',
                     image: 'Call Activity.png',
                     desc: 'از اين نماد براي فراخواني يك SubProcess استفاده مي شود. از لحاظ عملكرد اجرا كاملا شبيه نماد SubProcess عمل مي كند، يعني بعد از اينكه اجراي فرايند به اين نماد رسيد فرايند آن SubProcess را اجرا كرده با اين تفاوت كه از Call Actvity براي اجراي Sub Processهاي خارج از فرايند جاري و از SubProcess براي اجراي Embeded SubProcessها استفاده مي شود. اين تفاوت بيشتر در مدل سازي BPMSها معني پيدا مي كند.',
@@ -497,6 +879,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: true,
                 },
                 {
+                    id: 19,
                     title: 'Sub Process',
                     image: 'SubProcess.png',
                     desc: 'SubProcessها فعاليت‌هايي هستند كه خود شامل فعاليتهاي ديگر هستند و در آنها از Gateway,Event,Task,SubProcess و ... استفاده مي شود.\
@@ -505,6 +888,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     pro: false,
                 },
                 {
+                    id: 20,
                     title: 'Event Sub Process',
                     image: 'Event SubProcess.png',
                     pro: true,
@@ -512,6 +896,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: 'اين نوع SubProcessها مي توانند Interputing يا Non-Intrupting باشند. در صورتي كه Interupting باشد اجراي فرايند اصلي متوقف شده و فرايند درون آنها اجرا مي شود.',
                 },
                 {
+                    id: 21,
                     title: 'Transactional Sub Process',
                     image: 'Transaction.png',
                     pro: true,
@@ -519,6 +904,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: 'براي مثال فرايند انتقال وجه از يك حساب به حساب ديگر را در نظر بگيريد، كه در آن دو فعاليت وجود دارد كم كردن از حساب شما و واريز به حساب طرف مقابل. فرض كنيد در واريز به حساب مقابل خطايي رخ دهد پس بايد كم كردن از حساب شما نيز كنسل شود وگرنه پول از حساب شما كم شده ولي به حساب طرف مقابل واريز نمي شود',
                 },
                 {
+                    id: 22,
                     title: 'Ad-hoc Sub Process',
                     image: 'Adhoc SubProcess.png',
                     pro: true,
@@ -526,6 +912,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: '',
                 },
                 {
+                    id: 23,
                     title: 'Loop SubProcess/Task',
                     image: 'Loop SubProcess.png',
                     pro: true,
@@ -533,6 +920,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: 'لطفا در بخش اشتباهات رايج Using Loops instead of Multiple Instances را مشاهده نماييد',
                 },
                 {
+                    id: 24,
                     title: 'Sequential SubProcess/Task',
                     image: 'Sequential SubProcess.png',
                     pro: true,
@@ -540,6 +928,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: 'لطفا در بخش اشتباهات رايج Using Loops instead of Multiple Instances را مشاهده نماييد',
                 },
                 {
+                    id: 25,
                     title: 'Parallel SubProcess/Task',
                     image: 'Parallel SubProcess.png',
                     pro: true,
@@ -547,7 +936,8 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: 'لطفا در بخش اشتباهات رايج Using Loops instead of Multiple Instances را مشاهده نماييد',
                 },
                 //{
-                //    title: 'Compensation Subprocess',
+                    //id: 1,
+        //    title: 'Compensation Subprocess',
                 //    image: 'Compensation Subprocess.png',
                 //    pro: true,
                 //    desc: '',
@@ -556,6 +946,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ]
             },
             {
+                id: 3,
                 titleFa: 'دروازه‌',
                 title: 'Gateway',
                 label: '5',
@@ -565,6 +956,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                             </p><p>در صورتي كه جريان فرايند به آنها وارد شود اصطلاحا "همگرا" و در صورتي كه جريان فرايند از آنها خارج شود اصطلاحا "واگرا" گفته مي شود</p>',
                 items: [
                 {
+                    id: 30,
                     title: 'Exclusive Gateway (XOR)',
                     image: 'Exclusive Gateway.png',
                     pro: false,
@@ -574,6 +966,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                 },
                 {
+                    id: 31,
                     title: 'Inclusive Gateway (OR)',
                     image: 'Inclusive Gateway.png',
                     pro: false,
@@ -581,6 +974,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: '',
                 },
                 {
+                    id: 32,
                     title: 'Complex Gateway',
                     image: 'Complex Gateway.png',
                     pro: true,
@@ -588,6 +982,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     usage: '',
                 },
                 {
+                    id: 33,
                     title: 'Event Based Gateway',
                     image: 'Event Based Gateway.png',
                     pro: true,
@@ -601,6 +996,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 //    usage: '',
                 //},
                 {
+                    id: 34,
                     title: 'Parallel Gateway (AND)',
                     image: 'Parallel Gateway.png',
                     pro: true,
@@ -612,6 +1008,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ],
             },
             {
+                id: 4,
                 titleFa: 'رويدادها',
                 title: 'Events',
                 label: '8',
@@ -622,6 +1019,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 <br/><img class="descImage fillImage" src="images/EventAnatomy.png"/>',
                 items: [
                     {
+                        id: 41,
                         title: 'None Start Event',
                         image: 'Normal Start Event.png',
                         pro: false,
@@ -630,6 +1028,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 42,
                         title: 'Message Start Event',
                         image: 'Message Normal and SubProcess Start Event.png',
                         pro: true,
@@ -637,6 +1036,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 43,
                         title: 'Timer Start Event',
                         image: 'Timer Normal and SubProcess Start Event.png',
                         pro: true,
@@ -644,6 +1044,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'مثال: شروع مي تواند  به صورت هر روز ساعت 3، هر فصل، سالانه، روزانه، بعد از گذشت 10 دقيقه،هر 10 دقيقه، 94/05/01 باشد',
                     },
                     {
+                        id: 44,
                         title: 'Conditional Start Event',
                         pro: true,
                         image: 'Conditional Normal and SubProcess Start Event.png',
@@ -651,6 +1052,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'مثال: موجودي كالا در انبار كمتر از حدسفارش شود، چك بالاي 200 ميليون تومان صادر شود',
                     },
                     {
+                        id: 45,
                         title: 'Signal Start Event',
                         image: 'Signal Normal and SubProcess Start Event.png',
                         pro: true,
@@ -658,6 +1060,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'مثال:درب خودروي شما باز است و هر كسي مي تواند به شما اين موضوع را اطلاع دهد يا همان سيگنال بفرستد و شما با دريافت سيگنال فرايند چك كردن سرقت از خوردو و قفل كردن آن را شروع مي كنيد',
                     },
                     {
+                        id: 46,
                         title: 'Multiple Start Event',
                         pro: true,
                         image: 'Multiple Normal and SubProcess Start Event.png',
@@ -665,6 +1068,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'مثال:فرايند صدور چك مي تواند با درخواست پرداخت يا بعد از محاسبه حقوق يا به صورت ماهانه براي پرداخت ماليات شروع شود',
                     },
                     {
+                        id: 47,
                         title: 'Parallel Multiple Start Event',
                         pro: true,
                         image: 'Parallel Normal and SubProcess Start Event.png',
@@ -672,6 +1076,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 48,
                         title: 'Message Intermediate Event',
                         image: 'Message Throw Intermediate Event.png',
                         pro: true,
@@ -680,6 +1085,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 اين event مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس Message در اجراي فرايند داخلي به كار رود.',
                     },
                     {
+                        id: 49,
                         title: 'Timer Intermediate Event',
                         pro: true,
                         image: 'Timer Throw Intermediate Event.png',
@@ -688,6 +1094,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 اين event مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس زمان در اجراي فرايند داخلي به كار رود.',
                     },
                     {
+                        id: 50,
                         title: 'Escalation Intermediate Event',
                         image: 'Escalation Throw Intermediate Event.png',
                         pro: true,
@@ -695,6 +1102,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'مثال: در فرايند اعطاي وام در صورتي كه مبلغ وام بالا باشد، نياز است تا كارمند مدارك را به همراه مدير خود بررسي نمايد',
                     },
                     {
+                        id: 51,
                         title: 'Error Intermediate Event',
                         image: 'Error Throw Intermediate Event.png',
                         pro: true,
@@ -702,6 +1110,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'اين نماد صرفا چسبيده به SubProcess براي رفع و رجوع خطاهاي داخل آن استفاده مي شود. مثلا فرايند بررسي مدارك درخواست كننده وام را به صورت SubProcess مدل كرده ايد، حال اگر داخل فرايند مدركي ناقص باشد درون فرايند يك خطا رخ مي دهد و نياز است تا از اين نماد استفاده نماييد تا اطلاع رساني به درخواست كننده وام در مورد تكميل مدرك را اطلاع دهيد، توجه كنيد كه مسير عادي SubProcess مرحله بعدي اعطاي وام مي باشد.',
                     },
                     {
+                        id: 52,
                         title: 'Cancel Intermediate Event',
                         image: 'Cancel Boundary Intermediate Event.png',
                         pro: true,
@@ -709,6 +1118,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 53,
                         title: 'Compensation Intermediate Event',
                         image: 'Compensation Throw Intermediate Event.png',
                         pro: true,
@@ -716,6 +1126,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 54,
                         title: 'Conditional Intermediate Event',
                         pro: true,
                         image: 'Conditional Throw Intermediate Event.png',
@@ -724,6 +1135,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 اين رويداد مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال با شرايط خاص در اجراي فرايند داخلي به كار رود.',
                     },
                     {
+                        id: 55,
                         title: 'Link Intermediate Event',
                         pro: true,
                         image: 'Link Throw Intermediate Event.png',
@@ -731,6 +1143,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: 'در شرايطي كه فرايند مدل شده بسيار شلوغ شود و خطوط بايد از روي يكديگر رد شوند كه باعث كاهش خوانايي و درك مدل مي شود از اين نماد استفاده مي شود',
                     },
                     {
+                        id: 56,
                         title: 'Signal Intermediate Event',
                         image: 'Signal Throw Intermediate Event.png',
                         pro: true,
@@ -738,6 +1151,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 57,
                         title: 'Multiple Intermediate Event',
                         image: 'Mutile Intermediate Throw Event.png',
                         pro: true,
@@ -745,6 +1159,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 58,
                         title: 'Parallel Multiple Intermediate Event',
                         image: 'Parallel Catch and  Boundary Intermediate Event.png',
                         pro: true,
@@ -752,6 +1167,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 59,
                         title: 'None End Event',
                         image: 'None End Event.png',
                         pro: false,
@@ -759,6 +1175,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 60,
                         title: 'Message End Event',
                         image: 'Message End Event.png',
                         pro: true,
@@ -766,6 +1183,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 61,
                         title: 'Error End Event',
                         image: 'Error End Event.png',
                         pro: true,
@@ -773,6 +1191,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 62,
                         title: 'Escaltion End Event',
                         image: 'Escalation End Event.png',
                         pro: true,
@@ -780,6 +1199,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 63,
                         title: 'Cancel End Event',
                         image: 'Cancel End Event.png',
                         pro: true,
@@ -787,6 +1207,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 64,
                         title: 'Compensation End Event',
                         image: 'Compensation End Event.png',
                         pro: true,
@@ -794,6 +1215,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 65,
                         title: 'Signal End Event',
                         image: 'Signal End Event.png',
                         pro: true,
@@ -801,6 +1223,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 66,
                         title: 'Multiple End Event',
                         image: 'Multiple End Event.png',
                         pro: true,
@@ -809,6 +1232,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 67,
                         title: 'Terminate End Event',
                         image: 'Termination End Event.png',
                         pro: true,
@@ -819,6 +1243,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ],
             },
             {
+                id: 7,
                 titleFa: 'عناصر ارتباط دهنده',
                 title: 'Connecting Objects',
                 label: '5',
@@ -826,6 +1251,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 desc: 'Connecting Objectها برای اتصال اجزای جریان فرایند (Information Flow) به یکدیگر يا به دیگر اطلاعات به کار می‌روند. سه دسته Connecting Object وجود دارد.',
                 items: [
                     {
+                        id: 70,
                         title: 'Normal Sequence Flow',
                         image: 'Sequence Flow.png',
                         pro: false,
@@ -834,6 +1260,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 71,
                         title: 'Conditional Sequence Flow',
                         image: 'Conditional Flow.png',
                         pro: true,
@@ -841,6 +1268,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 72,
                         title: 'Default Sequence Flow',
                         image: 'Default Flow.png',
                         pro: true,
@@ -848,6 +1276,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 73,
                         title: 'Message Flow',
                         image: 'Message Flow.png',
                         pro: true,
@@ -856,6 +1285,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 مثال: پولي كه از مشتري دريافت مي كنيم، فاكتوري كه به مشتري ارسال مي كنيم',
                     },
                     {
+                        id: 74,
                         title: 'Association',
                         image: 'Association.png',
                         pro: false,
@@ -866,6 +1296,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ],
             },
             {
+                id: 8,
                 titleFa: 'مشاركت كنندگان',
                 title: 'Participants',
                 label: '3',
@@ -873,6 +1304,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 desc: 'بسياري از زبان‌هاي مدلسازي از مفهوم Swim lanes براي سازمان دهي فعاليت‌ها در قالب گروه‌ها استفاده مي‌كنند. اين نشان گرافيكي براي جداكردن تقش‌ها يا واحدهاي سازماني مختلف مورد استفاده قرار مي‌گيرد.',
                 items: [
                     {
+                        id: 80,
                         title: 'Pool',
                         image: 'Pool.png',
                         pro: false,
@@ -881,6 +1313,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 81,
                         title: 'Lane',
                         image: 'Lane.png',
                         pro: false,
@@ -892,6 +1325,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ],
             },
             {
+                id: 9,
                 titleFa: 'محصولات',
                 title: 'Artifacts & Data',
                 label: '3',
@@ -899,6 +1333,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 desc: 'در مدلسازی فرایندها از Artifact برای ارائه اطلاعات بیشتر در مورد نحوه ی انجام فرایند استفاده می شود',
                 items: [
                     {
+                        id: 90,
                         title: 'Text Annotation',
                         image: 'Text Annotation.png',
                         pro: false,
@@ -907,6 +1342,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 91,
                         title: 'Group',
                         image: 'Group.png',
                         pro: false,
@@ -914,6 +1350,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         usage: '',
                     },
                     {
+                        id: 92,
                         title: 'Data Object',
                         image: 'DataObject.png',
                         pro: true,
@@ -922,6 +1359,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
 
                     },
                     {
+                        id: 93,
                         title: 'Data Store',
                         image: 'DataStore.png',
                         pro: true,

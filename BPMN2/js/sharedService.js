@@ -74,68 +74,98 @@ module.factory('NotificationService', function ($rootScope) {
 
     return {
         alert: function (message, title, buttonText, buttonAction) {
-            if (navigator && navigator.notification && navigator.notification.confirm) {
+            ons.notification.alert({
+                message: message,
+                title: title,
+                buttonLabel: buttonText,
+                callback: buttonAction
+            });
+            //if (navigator && navigator.notification && navigator.notification.confirm) {
 
-                navigator.notification.alert(message,
-                function () {
-                    $rootScope.$apply(function () {
-                        buttonAction();
-                    })
-                },
-                title,
-                buttonText);
-            }
-            else {
-                alert(message);
-            }
+            //    navigator.notification.alert(message,
+            //    function () {
+            //        $rootScope.$apply(function () {
+            //            buttonAction();
+            //        })
+            //    },
+            //    title,
+            //    buttonText);
+            //}
+            //else {
+            //    alert(message);
+            //}
         },
-        confirm: function (message, title, buttons, YesIndex, NoIndex) {
-            if (navigator && navigator.notification && navigator.notification.confirm) {
-
-                var buttonLabels = getButtonLabels(buttons);
-                navigator.notification.confirm(
-                message,
-                function (buttonIndex) {
+        confirm: function (message, title, buttons) {
+            ons.notification.confirm({
+                message: message,
+                title: title,
+                buttonLabels: getButtonLabels(buttons),
+                primaryButtonIndex: 1,
+                callback: function (buttonIndex) {
                     $rootScope.$apply(function () {
-                        buttons[buttonIndex - 1].buttonAction();
+                        buttons[buttonIndex].buttonAction();
                     });
-                },
-                title,
-                buttonLabels
-                );
-            }
-            else {
-
-                var retVal = confirm(message);
-                if (retVal == true) {
-                    buttons[YesIndex].buttonAction();
-                } else {
-                    buttons[NoIndex].buttonAction();
+                    // Do something here.
                 }
-            }
+            });
+            //if (navigator && navigator.notification && navigator.notification.confirm) {
+
+            //    var buttonLabels = getButtonLabels(buttons);
+            //    navigator.notification.confirm(
+            //    message,
+            //    function (buttonIndex) {
+            //        $rootScope.$apply(function () {
+            //            buttons[buttonIndex - 1].buttonAction();
+            //        });
+            //    },
+            //    title,
+            //    buttonLabels
+            //    );
+            //}
+            //else {
+
+            //    var retVal = confirm(message);
+            //    if (retVal == true) {
+            //        buttons[YesIndex].buttonAction();
+            //    } else {
+            //        buttons[NoIndex].buttonAction();
+            //    }
+            //}
         },
-        prompt: function (message, title, buttons, OKIndex) {
-
-            if (navigator && navigator.notification && navigator.notification.prompt) {
-
-                var buttonLabels = getButtonLabels(buttons);
-                navigator.notification.prompt(
-                message,
-                function (results) {
+        prompt: function (message, title, buttons) {
+            alert(buttons);
+            ons.notification.prompt({
+                message: message,
+                title: title,
+                buttonLabel: getButtonLabels(buttons)[1],
+                callback: function (input) {
                     $rootScope.$apply(function () {
-                        buttons[results.buttonIndex - 1].buttonAction(results.input1);
+                        buttons[1].buttonAction(input);
                     });
-                },
-                title,
-                buttonLabels
-                );
-            }
-            else {
-                var retVal = prompt(message, "");
-                if (retVal != null) {
-                    buttons[OKIndex].buttonAction(retVal);
+                    // Do something here.
                 }
-            }
+            });
+
+            //if (navigator && navigator.notification && navigator.notification.prompt) {
+
+            //    var buttonLabels = getButtonLabels(buttons);
+            //    navigator.notification.prompt(
+            //    message,
+            //    function (results) {
+            //        $rootScope.$apply(function () {
+            //            buttons[results.buttonIndex - 1].buttonAction(results.input1);
+            //        });
+            //    },
+            //    title,
+            //    buttonLabels
+            //    );
+            //}
+            //else {
+            //    var retVal = prompt(message, "");
+            //    if (retVal != null) {
+            //        buttons[OKIndex].buttonAction(retVal);
+            //    }
+            //}
         },
         beep: function () {
             if (navigator && navigator.notification && navigator.notification.beep) {
@@ -152,21 +182,22 @@ module.factory('NotificationService', function ($rootScope) {
 
 module.controller("NotificationsControllerSample", function ($scope, LogService, NotificationService) {
     $scope.showAlert = function () {
-        NotificationService.alert("You caused an alert.", "Alert", "Ok", function () {
-            $scope.message = "You clicked it!"
+        NotificationService.alert("عنوان پيغام", "پيغام", "بله", function () {
+            $scope.message = "شما تاييد كرديد!"
         })
     };
     $scope.showConfirm = function () {
-        NotificationService.confirm("Do you like this?", "Please Confirm"
+        NotificationService.confirm("آيا اين را دوست داريد؟", "تاييد كنيد"
         , [
         {
-            title: "No",
+            title: "خير",
             buttonAction: function () {
+
                 $scope.message = ":-(";
             }
         },
         {
-            title: "Yes",
+            title: "بله",
             buttonAction: function () {
                 $scope.message = ":-)";
             }
@@ -175,16 +206,16 @@ module.controller("NotificationsControllerSample", function ($scope, LogService,
         );
     };
     $scope.showPrompt = function () {
-        NotificationService.prompt("Please enter your name", "Enter Name",
+        NotificationService.prompt("نام خود را وارد كنيد", "نام",
         [
         {
-            title: "Cancel",
+            title: "لغو",
             buttonAction: function (input) {
                 $scope.message = input;
             }
         },
         {
-            title: "Ok",
+            title: "تاييد",
             buttonAction: function (input) {
                 $scope.message = input;
             }

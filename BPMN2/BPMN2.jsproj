@@ -141,6 +141,19 @@
     <Content Include="images\Conditional Normal and SubProcess Start Event.png" />
     <Content Include="images\Conditional Sub Process Non Interupt Start Event.png" />
     <Content Include="images\Conditional Throw Intermediate Event.png" />
+    <Content Include="images\dashboard\m1-1.png" />
+    <Content Include="images\dashboard\m1-2.png" />
+    <Content Include="images\dashboard\m1-3.png" />
+    <Content Include="images\dashboard\m1-4.png" />
+    <Content Include="images\dashboard\m1-5.png" />
+    <Content Include="images\dashboard\m1-6.png" />
+    <Content Include="images\dashboard\m3-0.png" />
+    <Content Include="images\dashboard\m3-1.png" />
+    <Content Include="images\dashboard\m3-2.png" />
+    <Content Include="images\dashboard\m3-3.png" />
+    <Content Include="images\dashboard\m3-4.png" />
+    <Content Include="images\dashboard\m3-5.png" />
+    <Content Include="images\dashboard\m3-6.png" />
     <Content Include="images\DataObject.png" />
     <Content Include="images\DataStore.png" />
     <Content Include="images\Default Flow.png" />
@@ -165,6 +178,7 @@
     <Content Include="images\Link Catch Intermediate Event Timer.png" />
     <Content Include="images\Link Throw Intermediate Event.png" />
     <Content Include="images\linkedin-icon.png" />
+    <Content Include="images\logo.png" />
     <Content Include="images\Loop SubProcess.png" />
     <Content Include="images\Manual Task.png" />
     <Content Include="images\Message Boundary Non Interupt Intermediate Event.png" />
@@ -308,6 +322,8 @@
     <Content Include="js\GALocalStorage.js" />
     <Content Include="js\ng-cordova.js" />
     <Content Include="js\ng-cordova.min.js" />
+    <Content Include="js\ngStorage.js" />
+    <Content Include="js\ngStorage.min.js" />
     <Content Include="js\sharedService.js" />
     <Content Include="plugins\com.smartmobilesoftware.androidinappbilling\.fetch.json" />
     <Content Include="plugins\com.smartmobilesoftware.androidinappbilling\plugin.xml" />
@@ -326,6 +342,7 @@
     <Content Include="plugins\com.smartmobilesoftware.androidinappbilling\src\android\com\smartmobilesoftware\util\SkuDetails.java" />
     <Content Include="plugins\com.smartmobilesoftware.androidinappbilling\www\inappbilling.js" />
     <Content Include="templates\adhoc.html" />
+    <Content Include="templates\buypro.html" />
     <Content Include="templates\call.html" />
     <Content Include="templates\cancelEvent.html" />
     <Content Include="templates\compensationEvent.html" />
