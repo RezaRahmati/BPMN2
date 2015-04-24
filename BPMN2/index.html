@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="vendors/onsen/css/onsenui.css">
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="css/onsen-css-components-blue-basic-theme.css">
+    <link rel="stylesheet" href="css/onsen-css-components.css">
     <script src="vendors/onsen/js/angular/angular.js"></script>
     <script src="js/angular-sanitize.js"></script>
     <script src="vendors/onsen/js/onsenui.js"></script>
@@ -85,6 +85,29 @@
             height: 40px;
             padding: 2px;
         }
+
+        .menuRow {
+            margin-top: 20px;
+        }
+
+        .menuContainer {
+            color: rgba(38,100,171,0.81);
+        }
+
+        /*ons-toolbar ~ .page__content {
+            margin-top: 45px;
+        }
+
+        .search-bar {
+            width: 100%;
+            position: fixed;
+            display: block;
+            margin-top: -45px;
+        }
+
+        .after-search-bar {
+            margin-top: -10px;
+        }*/
     </style>
 </head>
 <body ng-controller="AppController">
@@ -108,8 +131,8 @@
                 <ons-list>
                     <ons-list-item modifier="tappable" class="list__item__line-height"
                                    onclick="menu.setMainPage('main.html', { closeMenu: true })">
-                        <i class="fa fa-newspaper-o fa-lg" style="color: rgba(38,100,171,0.81)"></i>
-                        &nbsp; <span>BPMN&nbsp;</span><span>مقدمه‌اي بر </span>
+                        <i class="fa fa-home fa-lg" style="color: rgba(38,100,171,0.81)"></i>
+                        &nbsp; <span>خانه</span>
                     </ons-list-item>
                     <ons-list-item modifier="tappable" class="list__item__line-height"
                                    onclick="menu.setMainPage('categories.html', { closeMenu: true })">
@@ -144,9 +167,64 @@
 
     <ons-template id="main.html">
         <ons-navigator var="navi">
-            <ons-page ng-controller="PrefaceController">
+            <ons-toolbar fixed-style>
+                <div class="left">
+                    <ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
+                </div>
+                <div class="center"><span>BPMN 2.0</span></div>
+            </ons-toolbar>
+            <ons-page ng-controller="MainController">
+                <div class="menuContainer">
+                    <ons-row class="menuRow" align="center">
+                        <ons-col align="center" width="50%" style="text-align:center">
+                            <ons-icon icon="fa-mortar-board" style="font-size: 4em; width: 1em" onclick="menu.setMainPage('tutorial.html')"></ons-icon>
+                        </ons-col>
+                        <ons-col align="center" width="50%" style="text-align:center">
+                        </ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col align="center" width="50%" style="text-align:center" onclick="menu.setMainPage('tutorial.html')">
+                            آموزش
+                        </ons-col>
+                        <ons-col align="center" width="50%" style="text-align:center" >
+                        </ons-col>
+                    </ons-row>
+                    <ons-row class="menuRow" align="center">
+                        <ons-col align="center" width="50%" style="text-align:center">
+                            <ons-icon icon="fa-search" style="font-size: 4em; width: 1em" onclick="menu.setMainPage('search.html')"></ons-icon>
+                        </ons-col>
+                        <ons-col align="center" width="50%" style="text-align:center">
+                            <ons-icon icon="fa-list-ul" style="font-size: 3.7em; width: 1em" onclick="menu.setMainPage('categories.html')"></ons-icon>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col align="center" width="50%" style="text-align:center" onclick="menu.setMainPage('search.html')">
 
-                <div ng-include="'templates/preface.html'"></div>
+                            جستجو
+
+
+                        </ons-col>
+                        <ons-col class="center" align="center" width="50%" style="text-align:center" onclick="menu.setMainPage('categories.html')">
+                            گروه‌بندي
+                        </ons-col>
+                    </ons-row>
+                    <ons-row class="menuRow" align="center">
+                        <ons-col align="center" width="50%" style="text-align:center">
+                            <ons-icon icon="fa-at" style="font-size: 4em; width: 1em" onclick="menu.setMainPage('contactus.html')"></ons-icon>
+                        </ons-col>
+                        <ons-col align="center" width="50%" style="text-align:center">
+                            <ons-icon icon="fa-frown-o" style="font-size: 4em; width: 1em" onclick="menu.setMainPage('mistakes.html')"></ons-icon>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col align="center" width="50%" style="text-align:center" onclick="menu.setMainPage('contactus.html')">
+                            تماس با ما
+                        </ons-col>
+                        <ons-col align="center" width="50%" style="text-align:center" onclick="menu.setMainPage('mistakes.html')">
+                            اشتباهات رايج
+                        </ons-col>
+                    </ons-row>
+                </div>
             </ons-page>
         </ons-navigator>
     </ons-template>
@@ -194,41 +272,45 @@
                 <div class="center"><span>جستجو</span></div>
             </ons-toolbar>
             <ons-page ng-controller="SearchController">
-
-                <ons-list>
-                    <ons-list-item modifier="chevron" class="item">
-                        <ons-row>
-                            <ons-col>
-                                <header style="">
-                                    <input type="search" class="search-input" placeholder="جستجو" ng-model="searchItem" />
-                                </header>
-                            </ons-col>
-                        </ons-row>
-                    </ons-list-item>
-                    <ons-list-item ng-repeat="item in items" ng-show="(item.items| filter:{title: searchItem}).length>0">
-                        <ons-list-header>
-
-                            <span>{{item.title}}</span>
-
-                        </ons-list-header>
-                        <ons-list-item class="item" modifier="chevron" ng-repeat="symbolItem in item.items| filter:{title: searchItem}" ng-click="showDetail($parent.$index,$index)">
-                            <ons-row align="center">
-                                <ons-col width="60px">
-                                    <div class="item-thum"><img class="item-thum" src="images/{{symbolItem.image}}"></div>
-                                </ons-col>
+                <!--<div class="search-bar">
+                    <input type="search" class="search-input" placeholder="جستجو" ng-model="searchItem" />
+                </div>-->
+                <div class="after-search-bar">
+                    <ons-list>
+                        <ons-list-item modifier="chevron" class="item">
+                            <ons-row>
                                 <ons-col>
-                                    <header>
-                                        <span class="item-title">{{symbolItem.title}}</span>
+                                    <header style="">
+                                        <input type="search" class="search-input" placeholder="جستجو" ng-model="searchItem" />
                                     </header>
-                                </ons-col>
-                                <ons-col>
-                                    <span class="item-label notification" ng-show="symbolItem.pro">Pro Verison</span>
-
                                 </ons-col>
                             </ons-row>
                         </ons-list-item>
-                    </ons-list-item>
-                </ons-list>
+                        <ons-list-item ng-repeat="item in items" ng-show="(item.items| filter:{title: searchItem}).length>0">
+                            <ons-list-header>
+
+                                <span>{{item.title}}</span>
+
+                            </ons-list-header>
+                            <ons-list-item class="item" modifier="chevron" ng-repeat="symbolItem in item.items| filter:{title: searchItem}" ng-click="showDetail($parent.$index,$index)">
+                                <ons-row align="center">
+                                    <ons-col width="60px">
+                                        <div class="item-thum"><img class="item-thum" src="images/{{symbolItem.image}}"></div>
+                                    </ons-col>
+                                    <ons-col>
+                                        <header>
+                                            <span class="item-title">{{symbolItem.title}}</span>
+                                        </header>
+                                    </ons-col>
+                                    <ons-col>
+                                        <span class="item-label notification" ng-show="symbolItem.pro">Pro version</span>
+
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
             </ons-page>
         </ons-navigator>
     </ons-template>
@@ -269,7 +351,7 @@
                             </header>
                         </ons-col>
                         <ons-col>
-                            <span class="item-label notification" ng-show="symbolItem.pro">Pro Verison</span>
+                            <span class="item-label notification" ng-show="symbolItem.pro">Pro version</span>
 
                         </ons-col>
                     </ons-row>
@@ -336,7 +418,7 @@
                                 <span class="item-title">{{item.title}}</span>
                             </ons-col>
                             <ons-col>
-                                <span class="item-label notification" ng-show="item.pro">Pro Verison</span>
+                                <span class="item-label notification" ng-show="item.pro">Pro version</span>
 
                             </ons-col>
                         </ons-row>
@@ -399,7 +481,7 @@
                                 <span class="item-title">{{item.title}}</span>
                             </ons-col>
                             <ons-col>
-                                <span class="item-label notification" ng-show="item.pro">Pro Verison</span>
+                                <span class="item-label notification" ng-show="item.pro">Pro version</span>
 
                             </ons-col>
                         </ons-row>
@@ -421,7 +503,6 @@
                     <span class="center">{{item.title}}</span>
                 </ons-list-header>-->
                 <ons-list-item>
-
                     <div style="direction:rtl" ng-include="'templates/'+item.url"></div>
                 </ons-list-item>
             </ons-list>
@@ -455,35 +536,35 @@
                         </ons-row>
                     </ons-list-item>
 
-                        <ons-list-item>
-                            <ons-row height="55px" align="center">
-                                <ons-col width="55px" align="center">
-                                    <div style="height:10px"></div>
-                                    <img src="images/Other-Mail-Metro-icon.png" style="width:48px" />
-                                </ons-col>
-                                <ons-col align="center">
-                                    <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
-                                    info@iziuse.com
-                                </ons-col>
+                    <ons-list-item>
+                        <ons-row height="55px" align="center">
+                            <ons-col width="55px" align="center">
+                                <div style="height:10px"></div>
+                                <img src="images/Other-Mail-Metro-icon.png" style="width:48px" />
+                            </ons-col>
+                            <ons-col align="center">
+                                <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
+                                info@iziuse.com
+                            </ons-col>
 
-                            </ons-row>
-                        </ons-list-item>
-                        <ons-list-item>
-                            <ons-row height="55px" align="center">
-                                <ons-col width="55px" align="center">
-                                    <div style="height:10px"></div>
-                                    <img src="images/linkedin-icon.png" style="width:48px" />
-                                </ons-col>
-                                <ons-col align="center">
-                                    <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
-                                    ir.linkedin.com/in/RezaRahmati
-                                </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row height="55px" align="center">
+                            <ons-col width="55px" align="center">
+                                <div style="height:10px"></div>
+                                <img src="images/linkedin-icon.png" style="width:48px" />
+                            </ons-col>
+                            <ons-col align="center">
+                                <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
+                                ir.linkedin.com/in/RezaRahmati
+                            </ons-col>
 
-                            </ons-row>
-                        </ons-list-item>
-                        <ons-list-header ng-hide="version == ''">
-                            <span>{{version}}</span>
-                        </ons-list-header>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-header ng-hide="version == ''">
+                        <span>{{version}}</span>
+                    </ons-list-header>
                 </ons-list>
 
 

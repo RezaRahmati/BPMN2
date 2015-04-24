@@ -10,7 +10,7 @@
         };
     });
 
-    module.controller('PrefaceController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService) {
+    module.controller('MainController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService) {
     });
 
     module.controller('CategoryController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $categories) {
@@ -50,7 +50,7 @@
         $scope.item = $categories.selectedSymbolItem;
 
     });
-    
+
     module.controller('MistakesController', function ($scope, DeviceService, ErrorService, LogService, NotificationService, SpinnerService, $mistakes) {
         $scope.items = $mistakes.items;
 
@@ -106,6 +106,11 @@
 
         data.items = [
 
+            {
+                title: 'Introduction',
+                url: 'preface.html',
+                pro: false,
+            },
             {
                 title: 'Symbol Overview',
                 url: 'overview.html',
@@ -422,8 +427,8 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 title: 'Activity',
                 label: '10',
                 image: 'SymbolActivities.png',
-                desc: '                            <p>فعالیت نشان دهنده کاری است که در يك گام از اجرای فرایندهای کسب و کار انجام می‌شود و مي تواند بصورت تک واحدی (atomic) یا مرکب (compound) باشد. فعالیتها می‌توانند یک بار اجرا شده و یا به صورت یک حلقه داخلی تعریف شده و تکرار شوند.</p>\
-                            <p>معمولا از مستطیل برای نشان دادن فعالیت استفاده می شود برای نشان دادن یک زیرفرایند (Sub Process) از نماد `+` در مرکز و پايين مستطيل استفاده مي‌شود</p>',
+                desc: '                            <p>Activity (فعاليت) نشان دهنده کاری است که در يك گام از اجرای فرایند انجام می‌شود و مي تواند بصورت Atomic (تك واحدي) یا Compound (مركب) باشد. Activityها می‌توانند یک بار اجرا شده و یا در یک حلقه تکرار شوند.</p>\
+                            <p>معمولا از مستطیل برای نشان دادن Activity استفاده می شود برای نشان دادن یک Sub Process از نماد `+` در پايين مرکز مستطيل استفاده مي‌شود</p>',
                 items: [
 
                 {
@@ -437,7 +442,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 {
                     title: 'Service Task',
                     image: 'Service Task.png',
-                    desc: 'اين نماد نشان دهنده فراخواني يك سرويس مي باشد. از اين نماد براي مدل سازي در BPMSها استفاده مي شود.',
+                    desc: 'اين نماد نشان دهنده فراخواني يك سرويس مي باشد. از اين نماد در مدل سازي در BPMSها استفاده مي شود.',
                     usage: '',
                     pro: true,
 
@@ -445,14 +450,14 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 {
                     title: 'Manual Task',
                     image: 'Manual Task.png',
-                    desc: 'اين نماد نشان دهنده فعاليتي است كه خارج از BPMS انجام مي شود.',
+                    desc: 'اين نماد نشان دهنده فعاليتي است كه خارج از BPMS و به صورت دستي انجام مي شود.',
                     usage: '',
                     pro: false,
                 },
                 {
                     title: 'User Task',
                     image: 'User Task.png',
-                    desc: 'نشان دهنده فعاليتي است كه يك كاربر سيستم بايد انجام دهد. وقتي اجراي فرايند به اين قسمت مي رسد يك كار در كارتابل كاربر ايجاد مي شود. از اين نماد براي مدل سازي BPMSها استفاده مي شود.',
+                    desc: 'نشان دهنده فعاليتي است كه كاربر سيستم بايد انجام دهد. وقتي اجراي فرايند به اين قسمت مي رسد يك كار در كارتابل كاربر ايجاد مي شود. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
                     usage: '',
                     pro: true,
                 },
@@ -473,21 +478,21 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 {
                     title: 'Business Rule Task',
                     image: 'Business Rule Task.png',
-                    desc: 'اين نماد نشان دهنده اجراي يك يا چند Business Rule مي باشد. از اين نمايد در مدل سازي BPMSها استفاده مي شود.',
+                    desc: 'اين نماد نشان دهنده اجراي يك يا چند Business Rule مي باشد. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
                     usage: '',
                     pro: true,
                 },
                 {
                     title: 'Script Task',
                     image: 'Script Task.png',
-                    desc: 'اين نماد نشان دهنده اجراي سيستمي يك فعاليت بر اساس دستورالعمل نوشته شده براي آن مي باشد. از اين نماد براي مدل سازي BPMSها استفاده مي شود.',
+                    desc: 'اين نماد نشان دهنده اجراي سيستمي يك فعاليت بر اساس دستورالعمل نوشته شده براي آن مي باشد. از اين نماد در مدل سازي BPMSها استفاده مي شود.',
                     usage: '',
                     pro: true,
                 },
                 {
                     title: 'Call Activity',
                     image: 'Call Activity.png',
-                    desc: 'اين نماد براي فراخواني يك SubProcess استفاده مي شود. از لحاظ عملكرد اجرا كاملا شبيه SubProcess است يعني بعد از رسيدن اجرا به اين نماد يا SubProcess فرايندآن SubProcess را اجرا كرده با اين تفاوت كه از Call Actvity براي اجراي SUb Processهاي خارج از اين فرايند و از SubProcess براي اجراي Embeded SubProcessها استفاده مي شود. اين تفاوت بيشتر در مدل سازي BPMSها معني پيدا مي كند.',
+                    desc: 'از اين نماد براي فراخواني يك SubProcess استفاده مي شود. از لحاظ عملكرد اجرا كاملا شبيه نماد SubProcess عمل مي كند، يعني بعد از اينكه اجراي فرايند به اين نماد رسيد فرايند آن SubProcess را اجرا كرده با اين تفاوت كه از Call Actvity براي اجراي Sub Processهاي خارج از فرايند جاري و از SubProcess براي اجراي Embeded SubProcessها استفاده مي شود. اين تفاوت بيشتر در مدل سازي BPMSها معني پيدا مي كند.',
                     usage: '',
                     pro: true,
                 },
@@ -503,28 +508,28 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     title: 'Event Sub Process',
                     image: 'Event SubProcess.png',
                     pro: true,
-                    desc: 'نوعي SubProcessاست كه با يك رويداد شروع به كار مي كند.',
-                    usage: 'اين نوع SubProcessها مي توانند Interputing يا Non-Intrupting باشند. در صورتي كه Interupting باشد اجراي فرايند اصلي متوقف شده و اين فرايند اجرا مي شود.',
+                    desc: 'نوعي SubProcess است كه با يك event شروع به كار مي كند.',
+                    usage: 'اين نوع SubProcessها مي توانند Interputing يا Non-Intrupting باشند. در صورتي كه Interupting باشد اجراي فرايند اصلي متوقف شده و فرايند درون آنها اجرا مي شود.',
                 },
                 {
                     title: 'Transactional Sub Process',
                     image: 'Transaction.png',
                     pro: true,
-                    desc: 'نوعي از SubProcessها است كه تضمين مي كند اجراي گروهي از فعاليت ها موفق يا ناموفق مي شود.',
+                    desc: 'نوعي از SubProcessها است كه تضمين مي كند كه يا اجراي گروهي از فعاليت ها موفق اجرا مي شود و يا در صورتي كه يكي از آنها ناموفق اجرا شد همه فعاليت هاي آن به وضعيت قبلي برگردانده مي شود گويي كه هيچ كدام اجرا نشده اند.',
                     usage: 'براي مثال فرايند انتقال وجه از يك حساب به حساب ديگر را در نظر بگيريد، كه در آن دو فعاليت وجود دارد كم كردن از حساب شما و واريز به حساب طرف مقابل. فرض كنيد در واريز به حساب مقابل خطايي رخ دهد پس بايد كم كردن از حساب شما نيز كنسل شود وگرنه پول از حساب شما كم شده ولي به حساب طرف مقابل واريز نمي شود',
                 },
                 {
                     title: 'Ad-hoc Sub Process',
                     image: 'Adhoc SubProcess.png',
                     pro: true,
-                    desc: 'نوعي از SubProcessها هستند كه اجراي آنها ترتيب خاصي ندارد',
+                    desc: 'نوعي از SubProcessها هستند كه اجراي فعاليت هاي درون آنها ترتيب خاصي ندارد',
                     usage: '',
                 },
                 {
                     title: 'Loop SubProcess/Task',
                     image: 'Loop SubProcess.png',
                     pro: true,
-                    desc: 'براي نمايش دادن اينكه يك فعاليت تا رسيدن به شرايط خاصي چندين بار در حلقه انجام مي شود استفاده مي گردد',
+                    desc: 'براي نمايش دادن اينكه يك فعاليت تا رسيدن به شرايط خاصي، چندين بار در حلقه انجام مي شود استفاده مي گردد',
                     usage: 'لطفا در بخش اشتباهات رايج Using Loops instead of Multiple Instances را مشاهده نماييد',
                 },
                 {
@@ -556,15 +561,15 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 label: '5',
                 image: 'SymbolGateway.png',
                 desc: '                            <p>\
-                                Gateway اجزایی از مدل‌سازی هستند که در جریان فرایند بکار گرفته مي‌شوند تا واگرایی و همگرایی جریان فرایند را از طریق تصمیم گیری تعيين كنند و تصميم گيري (decision) ، منشعب شدن (forking) و ترکيب شدن (merging) و بهم پيوستن (joining) مسيرها را مشخص مي کنند. Gatewayها با لوزی نشان داده می شوند.\
-                            </p>',
+                                Gateway اجزایی از مدل‌سازی هستند که در جریان فرایند بکار گرفته مي‌شوند تا جریان فرایند را از طریق تصمیم گیری تعيين كنند. آنها Decision (تصميم گيري) ، Forking (منشعب شدن) و Merging (ادغام شدن) و Joining (بهم پيوستن) مسيرها را نشان مي دهند. Gatewayها به صورت لوزی نمايش داده می شوند.\
+                            </p><p>در صورتي كه جريان فرايند به آنها وارد شود اصطلاحا "همگرا" و در صورتي كه جريان فرايند از آنها خارج شود اصطلاحا "واگرا" گفته مي شود</p>',
                 items: [
                 {
                     title: 'Exclusive Gateway (XOR)',
                     image: 'Exclusive Gateway.png',
                     pro: false,
-                    desc: 'واگرايي: اين نماد يك نقطه تصميم گيري است كه مي تواند دو يا بيشتر خروجي داشته باشد ولي تنها يكي از آنها ادامه پيدا مي كند<br\>\
-همگرايي: براي تركيب كردن و بستن مسيرها استفاده مي شود',
+                    desc: 'واگرا: اين نماد يك نقطه تصميم گيري است كه مي تواند دو يا بيشتر خروجي داشته باشد ولي تنها يكي از آنها ادامه پيدا مي كند<br\>\
+همگرا: براي تركيب كردن و بستن مسيرها استفاده مي شود',
                     usage: '',
 
                 },
@@ -572,21 +577,21 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     title: 'Inclusive Gateway (OR)',
                     image: 'Inclusive Gateway.png',
                     pro: false,
-                    desc: 'اين نماد يك نقطه تصميم گيري است كه مي تواند چندين خروجي داشته باشد و يك يا چند خروجي انتخاب و ادامه پيدا كند',
+                    desc: 'اين نماد يك نقطه تصميم گيري است كه مي تواند چندين خروجي داشته باشد و يك يا چند خروجي انتخاب و ادامه پيدا مي كند',
                     usage: '',
                 },
                 {
                     title: 'Complex Gateway',
                     image: 'Complex Gateway.png',
                     pro: true,
-                    desc: 'اين نماد يك نقطه تصميم گيري پيچيده است كه نمي توان با نمادهاي ديگر آن را مدل كرد.',
+                    desc: 'اين نماد يك نقطه تصميم گيري پيچيده است كه زماني از آن استفاده مي كنيم كه نمي توانيم اين نوع تصميم گيري را با نمادهاي ديگر مدل كنيم.',
                     usage: '',
                 },
                 {
                     title: 'Event Based Gateway',
                     image: 'Event Based Gateway.png',
                     pro: true,
-                    desc: 'اين نماد فقط به صورت واگرا استفاده مي شود و نشان دهنده اين است كه فقط يكي از مسيرهاي خروجي مي تواند انتخاب شود ولي نه بر اساس ديتا بلكه بر اساس رويدادي كه اتفاق مي افتد',
+                    desc: 'اين نماد فقط به صورت واگرا استفاده مي شود و نشان دهنده اين است كه فقط يكي از مسيرهاي خروجي مي تواند انتخاب شود، ولي نه بر اساس ديتا بلكه بر اساس event (رويدادي) كه اتفاق مي افتد',
                     usage: '',
                 },
                 //{
@@ -600,7 +605,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     image: 'Parallel Gateway.png',
                     pro: true,
                     desc: 'واگرا: براي نشان دادن اينكه چندين فعاليت به صورت موازي انجام مي شوند استفاده مي شود<br\>\
-همگرا: نشان دهنده اين است كه بايد همه فعاليت هاي موازي به اين نقطه برسند و بعد فرايند ادامه پيدا كند',
+همگرا: نشان دهنده اين است كه بايد همه فعاليت هاي موازي به اين نقطه برسند و سپس فرايند مي تواند ادامه پيدا كند',
                     usage: '',
 
                 }
@@ -611,16 +616,16 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 title: 'Events',
                 label: '8',
                 image: 'SymbolEvent.png',
-                desc: 'یک رويداد اتفاقي است که در طی اجرای یک فرایند رخ می دهد و بر جریان فرایند تأثیر می گذارد و معمولا یک شروع کننده (trigger) یا نتیجه (result)  می باشند. آنها می توانند جریان فرایند را شروع (Start)، قطع (Intermediate) یا  پایان (End) دهند.\
-<br/> رويدادها با دایره نشان داده می شوند و ضخامت حاشیه، يك خط بودن يا دوخط بودن و نقطه چين يا خط صاف بودن انها نشان دهنده نوع رويداد است.\
-<br/>در شكل زير مي توانيد آناتومي رويداد را مشاهده نماييد\
+                desc: 'یک event اتفاقي است که در طی اجرای یک فرایند رخ می دهد و بر جریان فرایند تأثیر می گذارد. آنها می توانند جریان فرایند را شروع (Start)، قطع (Intermediate) یا  پایان (End) دهند.\
+<br/> eventها با دایره نشان داده می شوند و ضخامت حاشیه، يك خط بودن يا دوخط بودن، نقطه چين يا خط صاف بودن خطوط انها نشان دهنده نوع event است.\
+<br/>در شكل زير مي توانيد آناتومي event را مشاهده نماييد\
 <br/><img class="descImage fillImage" src="images/EventAnatomy.png"/>',
                 items: [
                     {
                         title: 'None Start Event',
                         image: 'Normal Start Event.png',
                         pro: false,
-                        desc: 'شروع اجراي يك فرايند را نشان مي دهند و رفتار خاصي براي شروع وجود ندارد',
+                        desc: 'شروع اجراي يك فرايند را نشان مي دهند و زماني كه رفتار خاصي براي شروع مد نظر نمي باشد از اين نوع event استفاده مي كنيم',
                         usage: '<ul><li>شروع فرايند</li><li>شروع Sub Process</li></ul>',
 
                     },
@@ -628,7 +633,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Message Start Event',
                         image: 'Message Normal and SubProcess Start Event.png',
                         pro: true,
-                        desc: 'فرايند با دريافت يك Message از يك مشاركت كننده (Participant) ديگر شروع مي شود',
+                        desc: 'فرايند با دريافت يك Message از يك Participant ديگر شروع مي شود',
                         usage: '',
                     },
                     {
@@ -649,14 +654,14 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Signal Start Event',
                         image: 'Signal Normal and SubProcess Start Event.png',
                         pro: true,
-                        desc: 'فرايند با دريافت يك سيگنال از يك فرايند ديگر شروع مي شود. دقت كنيد كه سيگنال با Message تفاوت دارد. فرسنتده سيگنال مشخص نيست و مي تواند هر فرايندي باشد ولي ارسال كننده و دريافت كننده Message مشخص مي باشد.',
+                        desc: 'فرايند با دريافت يك signal از يك فرايند ديگر شروع مي شود. دقت كنيد كه Signal با Message تفاوت دارد. فرسنتده signal مشخص نيست و مي تواند هر فرايند ديگري باشد ولي ارسال كننده و دريافت كننده Message مشخص مي باشند.',
                         usage: 'مثال:درب خودروي شما باز است و هر كسي مي تواند به شما اين موضوع را اطلاع دهد يا همان سيگنال بفرستد و شما با دريافت سيگنال فرايند چك كردن سرقت از خوردو و قفل كردن آن را شروع مي كنيد',
                     },
                     {
                         title: 'Multiple Start Event',
                         pro: true,
                         image: 'Multiple Normal and SubProcess Start Event.png',
-                        desc: 'نشان مي دهد كه راه‌هاي مختلفي براي شروع فرايند وجود دارد و هركدام از آنها مي توانند فرايند را شروع كنند',
+                        desc: 'نشان مي دهد كه راه‌هاي مختلفي براي شروع فرايند وجود دارد و اتفاق افتادن حداقل يكي از آنها مي تواند فرايند را شروع كنند',
                         usage: 'مثال:فرايند صدور چك مي تواند با درخواست پرداخت يا بعد از محاسبه حقوق يا به صورت ماهانه براي پرداخت ماليات شروع شود',
                     },
                     {
@@ -671,8 +676,8 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'Message Throw Intermediate Event.png',
                         pro: true,
                         desc: 'نشان دهنده آن است كه Message مي‌تواند ارسال يا دريافت شود. حتي مي‌تواند نشان دهنده اين باشد كه اجراي فرايند تا دريافت يك Message معلق مي شود.',
-                        usage: 'مثال ارسال و يا دريافت پيام: در فرايند فروش، بعد از ارسال پيش فاكتور فرايند منتظر مي ماند تا پيش فاكتور تاييد شده دريافت شود و بعد ادامه پيدا كند.<br/>\
-اين رويداد مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس Message در اجراي فرايند داخلي به كار رود.',
+                        usage: 'مثال ارسال و يا دريافت message: در فرايند فروش، بعد از ارسال پيش فاكتور فرايند منتظر مي ماند تا پيش فاكتور تاييد شده دريافت شود و بعد ادامه پيدا كند.<br/>\
+اين event مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس Message در اجراي فرايند داخلي به كار رود.',
                     },
                     {
                         title: 'Timer Intermediate Event',
@@ -680,7 +685,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'Timer Throw Intermediate Event.png',
                         desc: 'نشان دهنده انتظار در حين فرايند مي باشد. ',
                         usage: 'مثال: بعد از سفارش پيتزا هر 30 دقيقه با رستوران پيگيري مي كند، يا در فرايند پخت غذا 10 دقيقه قبل از آماده شدن غذا، ميز را مي چينيد<br/>\
-اين رويداد مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس زمان در اجراي فرايند داخلي به كار رود.',
+اين event مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال از جنس زمان در اجراي فرايند داخلي به كار رود.',
                     },
                     {
                         title: 'Escalation Intermediate Event',
@@ -694,7 +699,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'Error Throw Intermediate Event.png',
                         pro: true,
                         desc: 'نشان دهنده دريافت خطا و رفع و رجوع كردن آن است',
-                        usage: 'اين نمياد صرفا چسبيده به SubProcess براي رفع و رجوع خطاهاي داخل آن استفاده مي شود. مثلا فرايند بررسي مدارك درخواست كننده وام را به صورت Sub Process مدل كرده ايد، حال اگر داخل فرايند مدركي ناقص باشد درون فرايند يك خطا رخ مي دهد و نياز است تا از اين نماد استفاده نماييد تا اطلاع رساني به درخواست كننده وام در مورد تكميل مدرك را اطلاع دهيد، توجه كنيد كه مسير عادي زيرفرايند مرحله بعدي اعطاي وام مي باشد.',
+                        usage: 'اين نماد صرفا چسبيده به SubProcess براي رفع و رجوع خطاهاي داخل آن استفاده مي شود. مثلا فرايند بررسي مدارك درخواست كننده وام را به صورت SubProcess مدل كرده ايد، حال اگر داخل فرايند مدركي ناقص باشد درون فرايند يك خطا رخ مي دهد و نياز است تا از اين نماد استفاده نماييد تا اطلاع رساني به درخواست كننده وام در مورد تكميل مدرك را اطلاع دهيد، توجه كنيد كه مسير عادي SubProcess مرحله بعدي اعطاي وام مي باشد.',
                     },
                     {
                         title: 'Cancel Intermediate Event',
@@ -707,15 +712,15 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Compensation Intermediate Event',
                         image: 'Compensation Throw Intermediate Event.png',
                         pro: true,
-                        desc: 'اين نمايد براي نشان دادن روش جبران در فرايند استفاده مي شود يا به عبارت ديگر Plan B را در صورتي كه Plan A محقق نشد نشان مي دهد.',
+                        desc: 'اين نماد براي نشان دادن روش جبران در فرايند استفاده مي شود يا به عبارت ديگر مسير اجراي Plan B را در صورتي كه Plan A محقق نشد نشان مي دهد.',
                         usage: '',
                     },
                     {
                         title: 'Conditional Intermediate Event',
                         pro: true,
                         image: 'Conditional Throw Intermediate Event.png',
-                        desc: 'در صورتي كه بخواهيم فرايند بعد از محقق شدن شرايط خاص ادامه پيدا كند از اين نماد استفاده مي كنيم',
-                        usage: 'مثال: بعد از اينكه تعداد درخواست هاي كالا به 10 مورد رسيد اقدام به خريد مي كنيم.<br\>\
+                        desc: 'در صورتي كه بخواهيم فرايند بعد از محقق شدن شرايط خاصي ادامه پيدا كند از اين نماد استفاده مي كنيم',
+                        usage: 'مثال: بعد از اينكه تعداد درخواست هاي كالا به 10 مورد رسيد اقدام به خريد مي نماييم.<br\>\
 اين رويداد مي تواند در حين فرايند يا به صورت چسبيده به يك SubProcess براي نمايش اتفاق افتادن رويه‌اي خارج از رويه نرمال با شرايط خاص در اجراي فرايند داخلي به كار رود.',
                     },
                     {
@@ -723,27 +728,27 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         pro: true,
                         image: 'Link Throw Intermediate Event.png',
                         desc: 'براي نمايش ارتباط دو قسمت از فرايند به يكديگر استفاده مي شوند',
-                        usage: 'در شرايطي كه فرايند مدل شده بسيار شلوغ شود و خطوط بايد از روي يكديگر رد شوند كه باعث كاهش خوانايي و درك مدل مي شود از اين نمايد استفاده مي شود',
+                        usage: 'در شرايطي كه فرايند مدل شده بسيار شلوغ شود و خطوط بايد از روي يكديگر رد شوند كه باعث كاهش خوانايي و درك مدل مي شود از اين نماد استفاده مي شود',
                     },
                     {
                         title: 'Signal Intermediate Event',
                         image: 'Signal Throw Intermediate Event.png',
                         pro: true,
-                        desc: 'براي ارسال يا دريافت سيگنال در حين فرايند استفاده مي شود. فرستند يا گيرنده سيگنال بر عكس Message مي تواند نامشخص باشد',
+                        desc: 'براي ارسال يا دريافت signal در حين فرايند استفاده مي شود. فرستند يا گيرنده Signal بر عكس Message مي تواند نامشخص باشد',
                         usage: '',
                     },
                     {
                         title: 'Multiple Intermediate Event',
                         image: 'Mutile Intermediate Throw Event.png',
                         pro: true,
-                        desc: 'نشان دهنده آن است كه فعال كننده هاي زيادي به رويداد مرتبط هستند و رويداد با رخ دادن يكي از آنها مي تواند ادامه پيدا كند',
+                        desc: 'نشان دهنده آن است كه triggerهاي زيادي به event مرتبط هستند و فرايند با رخ دادن حداقل يكي از آنها مي تواند ادامه پيدا كند',
                         usage: '',
                     },
                     {
                         title: 'Parallel Multiple Intermediate Event',
                         image: 'Parallel Catch and  Boundary Intermediate Event.png',
                         pro: true,
-                        desc: 'نشان دهنده آن است كه فعال كننده هاي زيادي به رويداد مرتبط هستند و رويداد فقط با رخ دادن همه آنها مي تواند ادامه پيدا كند',
+                        desc: 'نشان دهنده آن است كه triggerهاي زيادي به event مرتبط هستند و فرايند فقط با رخ دادن همه آنها مي تواند ادامه پيدا كند',
                         usage: '',
                     },
                     {
@@ -757,42 +762,42 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Message End Event',
                         image: 'Message End Event.png',
                         pro: true,
-                        desc: 'نشان دهنده آن است كه وقتي فرايند به انتها مي رسد يك Message نيز براي فرايند ديگري ارسال مي كند',
+                        desc: 'نشان دهنده آن است كه وقتي فرايند به آن مي رسد علاوه بر خاتمه يافتن فرايند يك Message نيز براي فرايند ديگري ارسال مي كند',
                         usage: '',
                     },
                     {
                         title: 'Error End Event',
                         image: 'Error End Event.png',
                         pro: true,
-                        desc: 'نشان دهند آن است كه وقتي فرايند به انتها مي رسد يك خطاي مشخص ارسال مي كند',
+                        desc: 'نشان دهند آن است كه وقتي فرايند به آن مي رسد علاوه به خاتمه يافتن فرايند يك Error مشخص نيز براي فرايند ديگر ارسال مي كند',
                         usage: '',
                     },
                     {
                         title: 'Escaltion End Event',
                         image: 'Escalation End Event.png',
                         pro: true,
-                        desc: 'نشان دهنده آن است كه وقتي فرايند به انتها مي رسد درخواست همياري به مشاركت كننده ديگري ارسال مي كند',
+                        desc: 'نشان دهنده آن است كه وقتي فرايند به آن مي رسد علاوه به خاتمه يافتن فرايند يك درخواست همياري از جنس Escalation به Participant (مشاركت كننده) ديگري ارسال مي كند',
                         usage: '',
                     },
                     {
                         title: 'Cancel End Event',
                         image: 'Cancel End Event.png',
                         pro: true,
-                        desc: 'تنها در TRansaction SubProcess استفاده شده و نمايانگر اين است كه Sub Process بايد Cancel شود',
+                        desc: 'تنها در Transaction SubProcess استفاده شده و نمايانگر اين است كه Sub Process بايد Cancel شود',
                         usage: '',
                     },
                     {
                         title: 'Compensation End Event',
                         image: 'Compensation End Event.png',
                         pro: true,
-                        desc: 'نشان دهنده اين اسن كه فرايند خاتمه يافته و بايد جبران يا همان Plan B اتفاق بيافتد',
+                        desc: 'نشان دهنده اين است كه فرايند خاتمه يافته و بايد Compensation(جبران) يا همان Plan B اتفاق بيافتد',
                         usage: '',
                     },
                     {
                         title: 'Signal End Event',
                         image: 'Signal End Event.png',
                         pro: true,
-                        desc: 'نشان دهنده اين است كه وقتي فرايند به انتها مي رسد يك سيگنال مشخص نيز ارسال مي كند',
+                        desc: 'نشان دهنده اين است كه وقتي فرايند به آن مي رسد علاوه به خاتمه يافتن فرايند يك signal مشخص نيز ارسال مي كند',
                         usage: '',
                     },
                     {
@@ -800,7 +805,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'Multiple End Event.png',
                         pro: true,
                         desc: 'نشان دهنده اين است كه نتيايج مختلفي در انتهاي فرايند ايجاد مي شوند',
-                        usage: 'نكته اينكه همه اين نتايج بايد توليد شوند',
+                        usage: 'نكته اينكه همه اين نتايج بايد توليد شوند تا فرايند خاتمه يابد',
 
                     },
                     {
@@ -818,7 +823,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 title: 'Connecting Objects',
                 label: '5',
                 image: 'SymbolConnectors.png',
-                desc: 'Connecting Objectها برای اتصال اجزای جریان فرایند به یکدیگر يا به دیگر اطلاعات به کار می‌روند. سه دسته از عناصر ارتباط دهنده وجود دارد.',
+                desc: 'Connecting Objectها برای اتصال اجزای جریان فرایند (Information Flow) به یکدیگر يا به دیگر اطلاعات به کار می‌روند. سه دسته Connecting Object وجود دارد.',
                 items: [
                     {
                         title: 'Normal Sequence Flow',
@@ -832,7 +837,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Conditional Sequence Flow',
                         image: 'Conditional Flow.png',
                         pro: true,
-                        desc: 'نشان دهنده مسير فرايند مي باشد با اين تفاوت كه در شرايط خاص مشخص شده اين مسير انتخاب مي شود',
+                        desc: 'نشان دهنده مسير اجراي فرايند مي باشد با اين تفاوت كه در شرايط خاص مشخص شده، اين مسير انتخاب مي شود',
                         usage: '',
                     },
                     {
@@ -846,7 +851,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Message Flow',
                         image: 'Message Flow.png',
                         pro: true,
-                        desc: 'براي نمايش جريان يافتن Message بين دو موجودين در فرايند به كار برده مي شود',
+                        desc: 'براي نمايش جريان يافتن Message بين دو موجوديت در فرايند به كار برده مي شود',
                         usage: 'ترتيب خاصي براي آنها وجود ندارد و ممكن است در هر فرايند همه آنها اتفاق نيافتد.\
 مثال: پولي كه از مشتري دريافت مي كنيم، فاكتوري كه به مشتري ارسال مي كنيم',
                     },
@@ -861,17 +866,17 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                 ],
             },
             {
-                titleFa: 'شركت كنندگان',
+                titleFa: 'مشاركت كنندگان',
                 title: 'Participants',
                 label: '3',
                 image: 'SymbolSwimLanes.png',
-                desc: 'بسياري از زبان‌هاي مدلسازي از مفهوم Swim lanes براي سازمان دهي فعاليت‌ها در گروه‌ها استفاده مي‌كنند. اين نشان گرافيكي براي جداكردن تقش‌ها يا واحدهاي سازماني مختلف مورد استفاده قرار مي‌گيرد.',
+                desc: 'بسياري از زبان‌هاي مدلسازي از مفهوم Swim lanes براي سازمان دهي فعاليت‌ها در قالب گروه‌ها استفاده مي‌كنند. اين نشان گرافيكي براي جداكردن تقش‌ها يا واحدهاي سازماني مختلف مورد استفاده قرار مي‌گيرد.',
                 items: [
                     {
                         title: 'Pool',
                         image: 'Pool.png',
                         pro: false,
-                        desc: '',
+                        desc: 'Pool برای مدل کردن مشاركت كنندگان مستقل در فرايند مانند واحدهای برون سازمانی، خریدار، فروشنده استفاده می‌شود، فعالیت‌هایی که در درون Pool های جداگانه رسم می شود، فرایندهای مستقل محسوب می شوند، بنابراين نمي‌توان از Sequence Flow براي نمايش جريان اطلاعات بين دو Pool استفاده كرد و به جاي آن بايد از Message Flow استفاده نماييد. در واقع Pool جعبه‌اي گرافيکي براي جداکردن فعاليت ها از سايرPoolها مي باشد.',
                         usage: '',
 
                     },
@@ -879,7 +884,9 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Lane',
                         image: 'Lane.png',
                         pro: false,
-                        desc: '',
+                        desc: '<p>\
+                            Lane بخشي در درون يک Pool است که براي شكستن Pool به واحدهاي كوچكتر استفاده مي شود و مي تواند افقي يا عمودي رسم شود.\
+                        </p><p>در حقيقت Lane براي جداكردن فعاليت‌هايي كه به يك واحد يا نقش خاص در سازمان مربوط مي شود، به كار گرفته مي‌شود. هر Pool می تواند شامل Lane هايی برای دسته بندی فعالیتها باشد. همچنين مي توان هر Lane را به Laneهاي كوچكتر نيز شكست. براي نمايش جريان اطلاعات بين Laneها بايد از Sequence Flow استفاده نماييد.</p>',
                         usage: '',
                     }
                 ],
@@ -895,7 +902,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         title: 'Text Annotation',
                         image: 'Text Annotation.png',
                         pro: false,
-                        desc: 'اطلاعات بيشتري به كسي كه فرايند را مشاهده مي كند مي دهد. اين اطلاعات مي تواند پبيه يادداشت يا اطلاعات تكميلي استفاده شوند.',
+                        desc: 'به كسي كه فرايند را مشاهده مي كند اطلاعات بيشتري در مورد آن مي دهد. اين اطلاعات مي تواند يادداشت يا اطلاعات تكميلي باشند.',
                         usage: '',
 
                     },
@@ -911,7 +918,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'DataObject.png',
                         pro: true,
                         desc: 'برای نشان دادن اینکه داده‌ها، اسناد و . . . چگونه در طول فرایند ايجاد، استفاده یا تغيير پيدا مي‌كنند، به کار می رود',
-                        usage: 'مثلا ايجاد يك موجوديت و داده جديد را مي توان نشان داد مثلا در فرايند فروش پيش فاكتور و فاكتور موجوديت هايي هستند كه ايجاد مي شوند و يا تغيير وضعيت هاي يك موجوديت را نيز مي توان مدل كرد، مثلا وضعيت ابتدايي پيش فاكتور، صادر شده و بعد از ابطال، باطل شده مي شود.',
+                        usage: 'مثلا ايجاد يك موجوديت و داده جديد را مي توان نشان داد. مثلا در فرايند فروش پيش فاكتور و فاكتور موجوديت هايي هستند كه ايجاد مي شوند. همچنين مي توان تغيير وضعيت هاي يك موجوديت را نيز مدل كرد، مثلا وضعيت ابتدايي پيش فاكتور، صادر شده و بعد از پرداخت مشتري، تاييد شده مي شود.',
 
                     },
                     {
@@ -919,7 +926,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                         image: 'DataStore.png',
                         pro: true,
                         desc: 'ارتباط فرايند با پايگاه‌هاي داده را نمايش مي‌دهد.',
-                        usage: 'اين اشيا مي تواند انتزاعي نيز باشند مثلا بعد از  تماس مشتري با ما، مشتري به عنوان سرنخ در پايگاه داده CRM وارد مي شود',
+                        usage: 'اين اشيا مي تواند انتزاعي نيز باشند، مثلا بعد از تماس مشتري با ما، مشتري به عنوان سرنخ در پايگاه داده CRM وارد مي شود',
                     }
                 ],
             },
