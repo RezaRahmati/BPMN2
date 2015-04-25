@@ -29,7 +29,7 @@
         }
 
         isPro.value = $scope.$storage.lastRun % 2 != 0;
-        isPro.value = false;
+        //isPro.value = false;
 
         ons.ready(function () {
             ons.setDefaultDeviceBackButtonListener(function () {

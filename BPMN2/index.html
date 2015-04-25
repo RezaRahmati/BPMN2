@@ -57,6 +57,7 @@
             padding: 0 30px 0 0;*/
             text-align: right;
             direction: rtl;
+            background-color: rgba(228,236,245,0.31);
         }
 
         .item-desc-en {
@@ -67,6 +68,7 @@
             padding: 0 30px 0 0;*/
             text-align: left;
             direction: ltr;
+            background-color: rgba(228,236,245,0.31);
         }
 
         .item-label {
@@ -87,6 +89,11 @@
             padding: 2px;
         }
 
+        .stickBug
+        {
+            margin-top:-15px;
+        }
+
         .menuRow {
             margin-top: 20px;
         }
@@ -103,7 +110,7 @@
         .list__item.card {
             border-style: solid !important;
             border-width: 1px !important;
-            border-color: #ddd !important;
+            border-color: #778899 !important;
             /*box-shadow: 0px 2px 3px #e6e6e6 !important;*/
             margin-left: 10px !important;
             margin-right: 10px !important;
@@ -112,12 +119,21 @@
             border-radius: 3px;
         }
 
+        .list__item.card:first-child {
+            margin-top:10px !important;
+        }
+
         .list.card {
-            background-color: #D9DADB;
+            background-color: #CCDDEE;
         }
 
         .list__item {
             background-color: #F8F8F8;
+        }
+
+        .list__item--chevron:active {
+            background-color: #445566;
+            color: #fff;
         }
 
         .menuIcon {
@@ -285,7 +301,7 @@
                 </div>-->
                 <div class="after-search-bar">
                     <ons-list>
-                        <ons-list-item modifier="chevron" class="item">
+                        <ons-list-item class="item">
                             <ons-row>
                                 <ons-col>
                                     <header style="">
@@ -334,12 +350,12 @@
             </ons-toolbar>
             <ons-list modifier="inset" style="margin-top: 10px">
 
-                <ons-list-item class="item">
+                <ons-list-item class="item" style="background-color:rgba(228,236,245,0.31);">
                     <p class="item-desc" ng-bind-html="item.desc"></p>
                 </ons-list-item>
             </ons-list>
             <ons-list style="margin-top: 10px">
-                <ons-list-item modifier="chevron" class="item">
+                <ons-list-item class="item">
                     <ons-row>
                         <ons-col>
                             <header style="">
@@ -385,12 +401,12 @@
                         </ons-col>
                         <ons-col>
                             <header>
-                                <span class="item-title">{{item.title}}</span>
+                                <span class="item-title" style="display:table;margin:0 auto;text-align:center">{{item.title}}</span>
                             </header>
                         </ons-col>
                     </ons-row>
                 </ons-list-item>
-                <ons-list-item>
+                <ons-list-item class="stickBug">
                     <p class="item-desc" ng-bind-html="item.desc"></p>
                     <p class="item-desc" ng-bind-html="item.usage"></p>
                     <div ng-show="item.pro" style="padding-bottom:10px">
@@ -419,8 +435,8 @@
             </ons-toolbar>
             <ons-page ng-controller="MistakesController">
 
-                <ons-list modifier="inset">
-                    <ons-list-item modifier="chevron" class="item">
+                <ons-list >
+                    <ons-list-item class="item">
                         <ons-row>
                             <ons-col>
                                 <header style="">
@@ -429,12 +445,14 @@
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item modifier="chevron" class="item" ng-repeat="item in items| filter:searchItem" ng-click="showDetail($index,item.id)">
+                </ons-list>
+                <ons-list class="card" >
+                    <ons-list-item modifier="chevron" class="item card" ng-repeat="item in items| filter:searchItem" ng-click="showDetail($index,item.id)">
                         <ons-row align="center">
                             <ons-col>
                                 <span class="item-title">{{item.title}}</span>
                             </ons-col>
-                            <ons-col>
+                            <ons-col width="90px">
                                 <span class="item-label notification" ng-show="item.pro">Pro version</span>
 
                             </ons-col>
@@ -493,8 +511,8 @@
             </ons-toolbar>
             <ons-page ng-controller="TutorialController">
 
-                <ons-list class="card">
-                    <ons-list-item modifier="chevron" class="item card">
+                <ons-list>
+                    <ons-list-item class="item">
                         <ons-row>
                             <ons-col>
                                 <header style="">
@@ -503,6 +521,8 @@
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
+                </ons-list>
+                <ons-list class="card">
                     <ons-list-item modifier="chevron" class="item card" ng-repeat="item in items| filter:searchItem" ng-click="showDetail($index,item.id)">
                         <ons-row align="center">
                             <ons-col>
@@ -556,13 +576,62 @@
                     </div>
                     <div class="center">درباره ما</div>
                 </ons-toolbar>
+
                 <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-item align="center">
+                        <ons-row align="center">
+                            <ons-col width="50%" align="center">
+                                <img src="images/zavosh.png" style="width:100%" />
+                            </ons-col>
+                            <ons-col width="50%" align="center">
+                                <p>
+                                    اين برنامه با همكاري شركت مشاوران سيستم‌هاي پيشرفته زاوش تهيه شده‌است
+                                </p>
+
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item class="stickBug">
+                        <p style="text-align:justify;direction:rtl;line-height:1.7em;"><b>مشاوران سیستم‌های پیشرفته زاوش</b> با هدف کمک به ارتقا توانمندی‌ها و بهره‌وری سازمان‌ها شکل گرفته است. به این منظور خدمات تخصصی مشاوره و اجرایی در حوزه‌های مدیریت و فناوری اطلاعات را در دستور کار خود قرار داده است و با رویکرد مدیریت فرآیندهای کسب وکار و معماری سازمانی سعی در تحقق این هدف دارد. مشاوران زاوش با ارائه راهکارهای یکپارچه دربرگیرنده کسب و کار، فرآیندها و فناوری و با توجه به فرهنگ و خصوصیات كشور این توانمندی را دارد كه سازمان ها را در رسیدن به اهدافشان و افزایش توان رقابتی‌شان یاری نماید.</p>
+                    </ons-list-item>
+                    <ons-list-item class="stickBug">
+                        <ons-row height="55px" align="center">
+                            <ons-col width="55px" align="center">
+                                <div style="height:10px"></div>
+                                <img src="images/internet-explorer-48.png" style="width:48px" />
+                            </ons-col>
+                            <ons-col align="center">
+                                www.zavosh.org
+                            </ons-col>
+
+                        </ons-row>
+                    </ons-list-item>
 
                     <ons-list-item>
                         <ons-row height="55px" align="center">
                             <ons-col width="55px" align="center">
                                 <div style="height:10px"></div>
-                                <img src="images/Web-Browsers-Internet-Explorer-alt-Metro-icon.png" style="width:48px" />
+                                <img src="images/email-5-48.png" style="width:48px" />
+                            </ons-col>
+                            <ons-col align="center">
+                                <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
+                                info@zavosh.org
+                            </ons-col>
+
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header align="center" class="stickBug" style="height: 0px">
+                        <p style="text-align:center">ارتباط با توسعه دهنده</p>
+
+                    </ons-list-header>
+                    <ons-list-item>
+                        <ons-row height="55px" align="center">
+                            <ons-col width="55px" align="center">
+                                <div style="height:10px"></div>
+                                <img src="images/internet-explorer-48.png" style="width:48px" />
                             </ons-col>
                             <ons-col align="center">
                                 <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
@@ -576,7 +645,7 @@
                         <ons-row height="55px" align="center">
                             <ons-col width="55px" align="center">
                                 <div style="height:10px"></div>
-                                <img src="images/Other-Mail-Metro-icon.png" style="width:48px" />
+                                <img src="images/email-5-48.png" style="width:48px" />
                             </ons-col>
                             <ons-col align="center">
                                 <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->
@@ -589,7 +658,7 @@
                         <ons-row height="55px" align="center">
                             <ons-col width="55px" align="center">
                                 <div style="height:10px"></div>
-                                <img src="images/linkedin-icon.png" style="width:48px" />
+                                <img src="images/linkedin-48.png" style="width:48px" />
                             </ons-col>
                             <ons-col align="center">
                                 <!--<a href="mailto:info@shamchidarim.com">info@ShamChiDarim.com</a>-->

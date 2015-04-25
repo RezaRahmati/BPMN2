@@ -123,7 +123,6 @@
     <Content Include="css\tutorial.css" />
     <Content Include="images\Adhoc SubProcess.png" />
     <Content Include="images\Association.png" />
-    <Content Include="images\bpmn.png" />
     <Content Include="images\BPMN_E1.png" />
     <Content Include="images\Business Rule Task.png" />
     <Content Include="images\Call Activity.png" />
@@ -157,6 +156,7 @@
     <Content Include="images\DataObject.png" />
     <Content Include="images\DataStore.png" />
     <Content Include="images\Default Flow.png" />
+    <Content Include="images\email-5-48.png" />
     <Content Include="images\Error End Event.png" />
     <Content Include="images\Error Start Event.png" />
     <Content Include="images\Error Throw Intermediate Event.png" />
@@ -174,10 +174,11 @@
     <Content Include="images\Exclusive Gateway2.png" />
     <Content Include="images\Group.png" />
     <Content Include="images\Inclusive Gateway.png" />
+    <Content Include="images\internet-explorer-48.png" />
     <Content Include="images\Lane.png" />
     <Content Include="images\Link Catch Intermediate Event Timer.png" />
     <Content Include="images\Link Throw Intermediate Event.png" />
-    <Content Include="images\linkedin-icon.png" />
+    <Content Include="images\linkedin-48.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\Loop SubProcess.png" />
     <Content Include="images\Manual Task.png" />
@@ -226,7 +227,6 @@
     <Content Include="images\Mutile Intermediate Throw Event.png" />
     <Content Include="images\None End Event.png" />
     <Content Include="images\Normal Start Event.png" />
-    <Content Include="images\Other-Mail-Metro-icon.png" />
     <Content Include="images\Parallel Boundary Non Interupt Intermediate Event.png" />
     <Content Include="images\Parallel Catch and  Boundary Intermediate Event.png" />
     <Content Include="images\Parallel Gateway.png" />
@@ -316,7 +316,7 @@
     <Content Include="images\tutorial\Timer2.png" />
     <Content Include="images\tutorial\Timer3.png" />
     <Content Include="images\User Task.png" />
-    <Content Include="images\Web-Browsers-Internet-Explorer-alt-Metro-icon.png" />
+    <Content Include="images\zavosh.png" />
     <Content Include="js\angular-sanitize.js" />
     <Content Include="js\app.js" />
     <Content Include="js\GALocalStorage.js" />
