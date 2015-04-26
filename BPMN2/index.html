@@ -89,9 +89,8 @@
             padding: 2px;
         }
 
-        .stickBug
-        {
-            margin-top:-15px;
+        .stickBug {
+            margin-top: -15px;
         }
 
         .menuRow {
@@ -111,7 +110,7 @@
             border-style: solid !important;
             border-width: 1px !important;
             border-color: #778899 !important;
-            /*box-shadow: 0px 2px 3px #e6e6e6 !important;*/
+            box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
             margin-left: 10px !important;
             margin-right: 10px !important;
             margin-top: 5px !important;
@@ -119,9 +118,9 @@
             border-radius: 3px;
         }
 
-        .list__item.card:first-child {
-            margin-top:10px !important;
-        }
+            .list__item.card:first-child {
+                margin-top: 10px !important;
+            }
 
         .list.card {
             background-color: #CCDDEE;
@@ -142,6 +141,11 @@
             position: relative;
             float: left;
         }
+
+        .search-input,.search-input:focus {
+            background-color: #fff;
+        }
+
 
 
         /*ons-toolbar ~ .page__content {
@@ -435,7 +439,7 @@
             </ons-toolbar>
             <ons-page ng-controller="MistakesController">
 
-                <ons-list >
+                <ons-list>
                     <ons-list-item class="item">
                         <ons-row>
                             <ons-col>
@@ -446,7 +450,7 @@
                         </ons-row>
                     </ons-list-item>
                 </ons-list>
-                <ons-list class="card" >
+                <ons-list class="card">
                     <ons-list-item modifier="chevron" class="item card" ng-repeat="item in items| filter:searchItem" ng-click="showDetail($index,item.id)">
                         <ons-row align="center">
                             <ons-col>
@@ -550,6 +554,7 @@
                 <!--<ons-list-header>
                     <span class="center">{{item.title}}</span>
                 </ons-list-header>-->
+                <ons-list-ite
                 <ons-list-item>
                     <div style="direction:rtl" ng-include="'templates/'+item.url"></div>
                     <div ng-show="item.pro" style="padding-bottom:10px">
@@ -592,7 +597,7 @@
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item class="stickBug">
-                        <p style="text-align:justify;direction:rtl;line-height:1.7em;"><b>مشاوران سیستم‌های پیشرفته زاوش</b> با هدف کمک به ارتقا توانمندی‌ها و بهره‌وری سازمان‌ها شکل گرفته است. به این منظور خدمات تخصصی مشاوره و اجرایی در حوزه‌های مدیریت و فناوری اطلاعات را در دستور کار خود قرار داده است و با رویکرد مدیریت فرآیندهای کسب وکار و معماری سازمانی سعی در تحقق این هدف دارد. مشاوران زاوش با ارائه راهکارهای یکپارچه دربرگیرنده کسب و کار، فرآیندها و فناوری و با توجه به فرهنگ و خصوصیات كشور این توانمندی را دارد كه سازمان ها را در رسیدن به اهدافشان و افزایش توان رقابتی‌شان یاری نماید.</p>
+                        <p style="text-align:justify;direction:rtl;line-height:1.7em;"><b>مشاوران سیستم‌های پیشرفته زاوش</b> با هدف کمک به ارتقا توانمندی‌ها و بهره‌وری سازمان‌ها شکل گرفته است. به این منظور خدمات تخصصی مشاوره و اجرایی در حوزه‌های مدیریت و فناوری اطلاعات را در دستور کار خود قرار داده است و با رویکرد مدیریت فرايندهای کسب وکار و معماری سازمانی سعی در تحقق این هدف دارد. مشاوران زاوش با ارائه راهکارهای یکپارچه دربرگیرنده کسب و کار، فرايندها و فناوری و با توجه به فرهنگ و خصوصیات كشور این توانمندی را دارد كه سازمان ها را در رسیدن به اهدافشان و افزایش توان رقابتی‌شان یاری نماید.</p>
                     </ons-list-item>
                     <ons-list-item class="stickBug">
                         <ons-row height="55px" align="center">

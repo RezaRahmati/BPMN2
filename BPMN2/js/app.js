@@ -893,7 +893,7 @@ However, in case of receiving an invitation to a meeting, a note is written by t
                     image: 'Event SubProcess.png',
                     pro: true,
                     desc: 'نوعي SubProcess است كه با يك event شروع به كار مي كند.',
-                    usage: 'اين نوع SubProcessها مي توانند Interputing يا Non-Intrupting باشند. در صورتي كه Interupting باشد اجراي فرايند اصلي متوقف شده و فرايند درون آنها اجرا مي شود.',
+                    usage: 'اين نوع SubProcessها مي توانند Intrupting يا Non-Intrupting باشند. در صورتي كه Interupting باشد اجراي فرايند اصلي متوقف شده و فرايند درون آنها اجرا مي شود.',
                 },
                 {
                     id: 21,
