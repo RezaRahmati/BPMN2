@@ -473,7 +473,7 @@
             },
             {
                 id: 6,
-                title: 'SubProcess',
+                title: 'Sub Process',
                 url: 'subProcess.html',
                 pro: false,
             },
@@ -485,13 +485,13 @@
             },
             {
                 id: 8,
-                title: 'Adhoc SubProcess',
+                title: 'Adhoc Sub Process',
                 url: 'adhoc.html',
                 pro: true,
             },
             {
                 id: 9,
-                title: 'Event Subprocess',
+                title: 'Event Sub Process',
                 url: 'eventSub.html',
                 pro: true,
             },
